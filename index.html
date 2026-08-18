@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevSecOps and Cybersecurity Quiz</title>
+
+  <style>
+    :root {
+      --orange-dark: #9a3412;
+      --orange: #ea580c;
+      --orange-light: #ffedd5;
+      --orange-pale: #fff7ed;
+      --background: #fffaf5;
+      --card: #ffffff;
+      --text: #292524;
+      --muted: #78716c;
+      --border: #fed7aa;
+
+      --correct-bg: #dcfce7;
+      --correct-border: #16a34a;
+      --correct-text: #166534;
+
+      --wrong-bg: #fee2e2;
+      --wrong-border: #dc2626;
+      --wrong-text: #b91c1c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      padding: 2.5rem 1rem;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+    }
+
+    header p {
+      max-width: 760px;
+      margin: 0.8rem auto 0;
+      line-height: 1.55;
+      color: #ffedd5;
+    }
+
+    .container {
+      width: min(100% - 2rem, 1000px);
+      margin: 2rem auto 4rem;
+    }
+
+    .quiz-status {
+      position: sticky;
+      top: 0.75rem;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 4px 18px rgba(154, 52, 18, 0.13);
+    }
+
+    #score {
+      font-weight: bold;
+      color: var(--orange-dark);
+    }
+
+    #reset-button {
+      border: none;
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      color: white;
+      background: var(--orange);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #reset-button:hover {
+      background: var(--orange-dark);
+    }
+
+    .question-card {
+      margin-bottom: 1.25rem;
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 0 3px 12px rgba(154, 52, 18, 0.07);
+    }
+
+    .question-card h2 {
+      margin: 0 0 0.55rem;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .question-type {
+      display: inline-block;
+      padding: 0.28rem 0.6rem;
+      margin-bottom: 1rem;
+      border-radius: 999px;
+      color: var(--orange-dark);
+      background: var(--orange-light);
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .options {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e7e5e4;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: #fb923c;
+      background: var(--orange-pale);
+    }
+
+    .option input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--orange);
+      cursor: pointer;
+    }
+
+    .option.correct {
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+      background: var(--correct-bg);
+      font-weight: bold;
+    }
+
+    .option.incorrect {
+      border-color: var(--wrong-border);
+      color: var(--wrong-text);
+      background: var(--wrong-bg);
+      font-weight: bold;
+    }
+
+    .option.disabled {
+      cursor: default;
+    }
+
+    .feedback {
+      display: none;
+      margin: 1rem 0 0;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      line-height: 1.45;
+    }
+
+    .feedback.correct-feedback {
+      display: block;
+      color: var(--correct-text);
+      background: var(--correct-bg);
+    }
+
+    .feedback.incorrect-feedback {
+      display: block;
+      color: var(--wrong-text);
+      background: var(--wrong-bg);
+    }
+
+    footer {
+      padding: 1rem 1rem 3rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .quiz-status {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #reset-button {
+        width: 100%;
+      }
+
+      .question-card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>DevSecOps and Cybersecurity Quiz</h1>
+    <p>
+      Complete all 100 questions. Choices are randomized on each page load and
+      when the quiz is reset. Correct answers appear in green; wrong selections
+      appear in red.
+    </p>
+  </header>
+
+  <main class="container">
+    <section class="quiz-status" aria-live="polite">
+      <div id="score">Score: 0 / 100 | Answered: 0 / 100</div>
+      <button id="reset-button" type="button">Reset and Shuffle Quiz</button>
+    </section>
+
+    <section id="quiz" aria-label="DevSecOps quiz questions"></section>
+  </main>
+
+  <footer>
+    MCSC 6002 — DevSecOps, authentication, access control, hashing, input validation, and secure development.
+  </footer>
+
+  <script>
+    function multipleChoice(question, correct, wrong1, wrong2, wrong3) {
+      return {
+        type: "Multiple Choice",
+        question: question,
+        correct: correct,
+        options: [correct, wrong1, wrong2, wrong3]
+      };
+    }
+
+    function trueFalse(question, answer) {
+      return {
+        type: "True / False",
+        question: question,
+        correct: answer ? "True" : "False",
+        options: ["True", "False"]
+      };
+    }
+
+    const questions = [
+      multipleChoice("What does DevSecOps stand for?", "Development, Security, and Operations", "Device Security Operations", "Development Systems Optimization", "Data Security Organization"),
+      multipleChoice("What is the main goal of DevSecOps?", "Embedding security throughout the software lifecycle", "Adding security only after release", "Removing testing", "Replacing developers with automation"),
+      multipleChoice("Which SDLC model follows sequential phases?", "Waterfall SDLC", "Agile", "Trunk-based development", "Continuous deployment"),
+      multipleChoice("Which approach uses short iterations to deliver high-value features?", "Agile development", "Waterfall development", "Mandatory access control", "Static analysis"),
+      multipleChoice("What should occur during the planning phase of DevSecOps?", "Threat modeling", "Deleting logs", "Publishing secrets", "Disabling authentication"),
+      multipleChoice("Which is a secure development practice?", "Peer code review", "Hardcoding passwords", "Ignoring vulnerable libraries", "Skipping tests"),
+      multipleChoice("What does Software Composition Analysis identify?", "Vulnerable third-party components", "Network cable failures", "Screen size problems", "Employee attendance"),
+      multipleChoice("What does SAST analyze?", "Source code without running the application", "A running application", "Network traffic only", "Database backups"),
+      multipleChoice("What does DAST analyze?", "A running application", "Only source code", "File permissions only", "Git history"),
+      multipleChoice("What is a release security gate?", "Blocking release when critical vulnerabilities exist", "Giving all users admin rights", "Deleting testing reports", "Disabling compliance checks"),
+
+      multipleChoice("Which tool can manage deployment secrets?", "AWS Secrets Manager", "A public text file", "A hardcoded source file", "A browser bookmark"),
+      multipleChoice("Which CIA principle prevents unauthorized data access?", "Confidentiality", "Integrity", "Availability", "Scalability"),
+      multipleChoice("Which CIA principle ensures data is not altered improperly?", "Integrity", "Availability", "Confidentiality", "Redundancy"),
+      multipleChoice("Which CIA principle ensures systems remain accessible?", "Availability", "Authentication", "Confidentiality", "Hashing"),
+      multipleChoice("Which control supports confidentiality?", "Encryption", "Password reuse", "chmod 777", "Deleting backups"),
+      multipleChoice("Which technique helps verify integrity?", "SHA-256 hashing", "Plain HTTP", "Password sharing", "Disabling logs"),
+      multipleChoice("What does least privilege mean?", "Give only the access required", "Give everyone admin access", "Allow anonymous access", "Use one shared account"),
+      multipleChoice("What does RBAC stand for?", "Role-Based Access Control", "Random Binary Access Control", "Remote Backup Access Code", "Runtime Browser Access Check"),
+      multipleChoice("What Linux permission value represents read?", "4", "1", "2", "7"),
+      multipleChoice("What Linux permission value represents write?", "2", "1", "4", "7"),
+
+      multipleChoice("What Linux permission value represents execute?", "1", "2", "4", "6"),
+      multipleChoice("What does chmod 755 commonly allow?", "Owner read/write/execute; others read/execute", "Everyone can write", "Only group members can execute", "No one can read"),
+      multipleChoice("Why is chmod 777 unsafe in production?", "It gives everyone full permissions", "It encrypts all files", "It blocks file access", "It creates backups"),
+      multipleChoice("Which protocol protects web traffic using TLS?", "HTTPS", "HTTP", "Telnet", "FTP"),
+      multipleChoice("What is a Git working directory?", "The folder where files are edited", "A remote repository only", "The staging area", "A deployment server"),
+      multipleChoice("What is Git's staging area used for?", "Selecting changes for the next commit", "Deleting commits", "Deploying automatically", "Encrypting files"),
+      multipleChoice("Which Git command stages changes?", "git add", "git push", "git clone", "git log"),
+      multipleChoice("Which Git command creates a local snapshot?", "git commit", "git pull", "git status", "git fetch"),
+      multipleChoice("Which Git command uploads commits to a remote?", "git push", "git add", "git diff", "git init"),
+      multipleChoice("What is a merge conflict?", "Git cannot automatically combine changes", "A successful deployment", "An encrypted branch", "A deleted repository"),
+
+      multipleChoice("What describes trunk-based development?", "Short-lived branches merge frequently", "Branches never merge", "Only one developer can commit", "Testing is prohibited"),
+      multipleChoice("What does unit testing focus on?", "Individual functions or methods", "The full system", "Network routing", "Production deployment"),
+      multipleChoice("What does integration testing check?", "How components work together", "Only one method", "Only file names", "Only passwords"),
+      multipleChoice("What does system testing evaluate?", "The fully integrated application", "Only one variable", "Only one Git branch", "Only code formatting"),
+      multipleChoice("What does code coverage measure?", "Code executed during testing", "Number of developers", "Database size", "Number of servers"),
+      multipleChoice("What is a benefit of automated testing?", "Fast repeatable regression testing", "Guaranteed zero bugs", "No need for developers", "No need for reviews"),
+      multipleChoice("What does Continuous Integration encourage?", "Frequent integration with automated checks", "Manual releases only", "No shared repository", "Skipping tests"),
+      multipleChoice("What does Continuous Deployment enable?", "Automatic release of validated changes", "No testing", "No rollback", "Manual deployment only"),
+      multipleChoice("What is Infrastructure as Code?", "Version-controlled infrastructure configuration", "Passwords in code", "Manual server setup only", "Using physical servers only"),
+      multipleChoice("What is monitoring used for in DevSecOps?", "Detecting anomalies and supporting response", "Removing logs", "Blocking all commits", "Replacing backups"),
+
+      multipleChoice("What is authentication?", "Verifying identity", "Assigning permissions", "Encrypting files", "Backing up databases"),
+      multipleChoice("What is authorization?", "Determining allowed actions", "Creating passwords", "Generating hashes", "Monitoring traffic"),
+      multipleChoice("A password is which authentication factor?", "Something you know", "Something you have", "Something you are", "Something you execute"),
+      multipleChoice("A phone authenticator app is which factor?", "Something you have", "Something you know", "Something you are", "Something you delete"),
+      multipleChoice("A fingerprint is which factor?", "Something you are", "Something you have", "Something you know", "Something you install"),
+      multipleChoice("What does MFA require?", "Two or more authentication factors", "Only a password", "Only a username", "Only an IP address"),
+      multipleChoice("How should passwords be stored?", "Salted hashes with a strong password-hashing algorithm", "Plaintext", "Public spreadsheet entries", "Source-code comments"),
+      multipleChoice("Which algorithms are suitable for password hashing?", "Argon2 and bcrypt", "Base64 and ROT13", "HTTP and HTTPS", "FTP and SSH"),
+      multipleChoice("What is a token-authentication advantage?", "Passwords are not sent with every request", "Tokens never expire", "Tokens cannot be stolen", "Tokens remove all security controls"),
+      multipleChoice("Which Unix file stores protected password hashes?", "/etc/shadow", "/etc/group", "/etc/hosts", "/var/log/messages"),
+
+      multipleChoice("What identifies a Unix user internally?", "UID", "URL", "TLS", "MAC address"),
+      multipleChoice("What identifies a Unix group?", "GID", "UID", "JWT", "DNS"),
+      multipleChoice("What does PAM provide?", "Configurable authentication mechanisms", "Automatic file encryption", "A replacement for user accounts", "Browser cookie management"),
+      multipleChoice("What does DAC stand for?", "Discretionary Access Control", "Dynamic Authentication Configuration", "Distributed Account Creation", "Data Availability Control"),
+      multipleChoice("What does MAC access control use?", "Security labels and clearances", "Only usernames", "Only file names", "Only network speed"),
+      multipleChoice("What does ABAC evaluate?", "Attributes of subjects, objects, and environment", "Only passwords", "Only IP addresses", "Only file names"),
+      multipleChoice("Which model commonly uses ACLs?", "Windows access control", "Linux owner/group/others only", "Hashing", "Continuous deployment"),
+      multipleChoice("What is the output of a hash commonly called?", "Digest", "Password", "Firewall rule", "Certificate authority"),
+      multipleChoice("What property means the same input creates the same hash?", "Determinism", "Availability", "Authorization", "Randomness"),
+      multipleChoice("What is the avalanche effect?", "A small input change produces a very different hash", "Hashes can be decrypted", "All inputs have the same hash", "Hash output grows with input size"),
+
+      multipleChoice("Which hash algorithm is deprecated due to collision attacks?", "SHA-1", "SHA-256", "SHA-3", "SHA-512"),
+      multipleChoice("What does a MAC provide?", "Integrity and authenticity using a secret key", "Only compression", "Only availability", "Public encryption"),
+      multipleChoice("Why is HMAC better than a raw hash for authentication?", "It uses a secret key", "It removes data", "It does not use cryptography", "It replaces input validation"),
+      multipleChoice("What is a nonce?", "A value used once for uniqueness or freshness", "A permanent password", "An unencrypted packet", "An access-control list"),
+      multipleChoice("What attack can a nonce help prevent?", "Replay attacks", "File compression", "Code formatting", "Database normalization"),
+      multipleChoice("What is the purpose of anti-tampering hash checks?", "Detect unauthorized modification", "Increase file size", "Grant admin access", "Delete audit logs"),
+      multipleChoice("What is code obfuscation intended to do?", "Make reverse engineering more difficult", "Replace encryption everywhere", "Guarantee code cannot be analyzed", "Expose passwords"),
+      multipleChoice("What is a core secure-programming principle?", "Treat all external input as untrusted", "Trust logged-in users automatically", "Trust internal network input", "Accept all values"),
+      multipleChoice("What is a trust boundary?", "A point where data crosses different trust levels", "A password reset process", "A backup location", "A Git branch"),
+      multipleChoice("What is allow-listing?", "Accepting only input matching approved rules", "Blocking known bad words only", "Allowing everything", "Deleting data after storage"),
+
+      multipleChoice("Why is deny-listing alone weak?", "New or encoded attacks can bypass it", "It always rejects valid input", "It encrypts too much", "It prevents automation"),
+      multipleChoice("What is context-aware validation?", "Validation and encoding based on intended use", "The same rule in every context", "No validation after input", "Lowercasing all input"),
+      multipleChoice("Why avoid raw input in shell commands?", "It can cause command injection", "It improves performance", "It removes authentication", "It guarantees logging"),
+      multipleChoice("What vulnerability occurs when attackers control a printf format string?", "Format-string vulnerability", "SQL injection only", "DNS spoofing only", "Certificate pinning"),
+      multipleChoice("What is a buffer overflow?", "Writing more data than a buffer can hold", "Encrypting a buffer", "Creating a backup", "Reading metadata securely"),
+      multipleChoice("What control detects stack overwrites using a random value?", "Stack canary", "DNS resolver", "Access matrix", "JWT"),
+      multipleChoice("What does ASLR do?", "Randomizes memory locations", "Encrypts all data", "Creates database roles", "Signs Git commits"),
+      multipleChoice("What does the NX bit help prevent?", "Executing code from data memory", "Strong passwords", "Network monitoring", "File hashing"),
+      multipleChoice("What is XSS?", "Untrusted data being interpreted as browser code", "Database encryption", "A Linux command", "A Git strategy"),
+      multipleChoice("What is the primary XSS defense?", "Context-specific output encoding", "String concatenation", "Disabling browser updates", "Saving scripts in comments"),
+
+      multipleChoice("What is stored XSS?", "Malicious content stored on a server and shown to users", "A local-only script", "A parameterized query", "A password hash"),
+      multipleChoice("What is reflected XSS?", "Unsafe input immediately returned in a response", "A browser security feature", "A password reset", "Disk encryption"),
+      multipleChoice("What is SQL injection?", "Manipulating database queries through unsafe input", "Encrypting SQL tables", "Creating a database backup", "Updating schemas"),
+      multipleChoice("What is the best primary defense against SQL injection?", "Parameterized queries or prepared statements", "String concatenation", "Blocking only SELECT", "Giving database admin access"),
+      multipleChoice("Why should database accounts use least privilege?", "It limits impact when an application is compromised", "It gives all users delete permission", "It replaces prepared statements", "It prevents logins"),
+      multipleChoice("What is path traversal?", "Using paths such as ../ to escape an allowed directory", "Encrypting a filename", "Creating folders", "Changing user roles"),
+      multipleChoice("How can path traversal be reduced?", "Canonicalize paths and enforce an allowed base directory", "Trust all file paths", "Allow all symbolic links", "Use plaintext paths"),
+      multipleChoice("What risk can loose email validation create?", "Header injection and account misuse", "Better encryption", "Stronger authentication", "Automatic backups"),
+      multipleChoice("What is entropy in security?", "A measure of unpredictability", "Amount of disk space", "Number of users", "Firewall type"),
+      multipleChoice("Why are predictable random values dangerous?", "Attackers may predict tokens and keys", "They improve security", "They prevent replay", "They encrypt traffic"),
+
+      trueFalse("Security in DevSecOps is shared across development, security, and operations teams.", true),
+      trueFalse("A system should automatically trust input from authenticated users.", false),
+      trueFalse("Allow-listing is generally safer than deny-listing alone.", true),
+      trueFalse("Output encoding is an important defense against XSS.", true),
+      trueFalse("Passwords should be stored in plaintext for recovery.", false),
+      trueFalse("Weak random-number generation can compromise session tokens.", true),
+      trueFalse("A plain cryptographic hash proves who created a message.", false),
+      trueFalse("TLS helps protect data while it travels across a network.", true),
+      trueFalse("Linux directory execute permission permits traversal of the directory.", true),
+      trueFalse("Continuous monitoring can help detect anomalies and intrusions.", true)
+    ];
+
+    const quizElement = document.getElementById("quiz");
+    const scoreElement = document.getElementById("score");
+    const resetButton = document.getElementById("reset-button");
+
+    let answeredQuestions = 0;
+    let correctAnswers = 0;
+
+    function shuffle(items) {
+      const result = [...items];
+
+      for (let index = result.length - 1; index > 0; index--) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [result[index], result[randomIndex]] = [result[randomIndex], result[index]];
+      }
+
+      return result;
+    }
+
+    function updateScore() {
+      scoreElement.textContent =
+        `Score: ${correctAnswers} / ${questions.length} | ` +
+        `Answered: ${answeredQuestions} / ${questions.length}`;
+    }
+
+    function checkAnswer(question, selectedAnswer, card) {
+      if (card.dataset.answered === "true") {
+        return;
+      }
+
+      card.dataset.answered = "true";
+      answeredQuestions += 1;
+
+      const labels = card.querySelectorAll(".option");
+      const inputs = card.querySelectorAll("input");
+      const feedback = card.querySelector(".feedback");
+
+      inputs.forEach((input) => {
+        input.disabled = true;
+      });
+
+      labels.forEach((label) => {
+        const optionText = label.dataset.answer;
+        label.classList.add("disabled");
+
+        if (optionText === question.correct) {
+          label.classList.add("correct");
+        }
+
+        if (optionText === selectedAnswer && selectedAnswer !== question.correct) {
+          label.classList.add("incorrect");
+        }
+      });
+
+      if (selectedAnswer === question.correct) {
+        correctAnswers += 1;
+        feedback.textContent = "Correct!";
+        feedback.className = "feedback correct-feedback";
+      } else {
+        feedback.textContent = `Incorrect. Correct answer: ${question.correct}`;
+        feedback.className = "feedback incorrect-feedback";
+      }
+
+      updateScore();
+    }
+
+    function renderQuiz() {
+      quizElement.innerHTML = "";
+
+      questions.forEach((question, questionIndex) => {
+        const card = document.createElement("article");
+        card.className = "question-card";
+
+        const title = document.createElement("h2");
+        title.textContent = `${questionIndex + 1}. ${question.question}`;
+
+        const type = document.createElement("span");
+        type.className = "question-type";
+        type.textContent = question.type;
+
+        const optionsContainer = document.createElement("div");
+        optionsContainer.className = "options";
+
+        const shuffledOptions = shuffle(question.options);
+
+        shuffledOptions.forEach((optionText) => {
+          const label = document.createElement("label");
+          label.className = "option";
+          label.dataset.answer = optionText;
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `question-${questionIndex}`;
+          input.value = optionText;
+          input.setAttribute("aria-label", optionText);
+
+          const text = document.createElement("span");
+          text.textContent = optionText;
+
+          input.addEventListener("change", () => {
+            checkAnswer(question, optionText, card);
+          });
+
+          label.appendChild(input);
+          label.appendChild(text);
+          optionsContainer.appendChild(label);
+        });
+
+        const feedback = document.createElement("p");
+        feedback.className = "feedback";
+        feedback.setAttribute("aria-live", "polite");
+
+        card.appendChild(title);
+        card.appendChild(type);
+        card.appendChild(optionsContainer);
+        card.appendChild(feedback);
+
+        quizElement.appendChild(card);
+      });
+    }
+
+    function resetQuiz() {
+      answeredQuestions = 0;
+      correctAnswers = 0;
+      updateScore();
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    resetButton.addEventListener("click", resetQuiz);
+
+    renderQuiz();
+    updateScore();
+  </script>
+</body>
+</html>
