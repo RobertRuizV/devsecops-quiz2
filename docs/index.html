@@ -5,7 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DevSecOps and Cybersecurity Quiz</title>
   <style>
-    :root{--orange:#ea580c;--dark:#9a3412;--pale:#fff7ed;--line:#fed7aa;--text:#292524;--green:#166534;--green-bg:#dcfce7;--red:#b91c1c;--red-bg:#fee2e2}*{box-sizing:border-box}body{margin:0;background:#fffaf5;color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.45}header{padding:2.2rem 1rem;color:#fff;text-align:center;background:linear-gradient(135deg,var(--dark),var(--orange))}header h1{margin:0}header p{max-width:860px;margin:.75rem auto 0}.progress-shell{position:sticky;top:0;z-index:10;padding:.7rem 1rem;background:#fffaf5ee;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}.track{max-width:1000px;height:18px;margin:auto;overflow:hidden;border:1px solid var(--dark);border-radius:999px;background:#fed7aa}.fill{width:0;height:100%;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ea580c 0 12px,#fb923c 12px 24px);background-size:34px 34px;transition:width .4s ease;animation:roll 1s linear infinite}@keyframes roll{to{background-position:34px 0}}#progressText{text-align:center;margin:.4rem 0 0;color:var(--dark);font-weight:bold}.container{width:min(100% - 2rem,1000px);margin:1.5rem auto 3rem}.status{position:sticky;top:82px;z-index:9;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 3px 12px #9a34121a}.button{border:0;border-radius:8px;padding:.7rem 1rem;color:#fff;background:var(--orange);font-weight:bold;cursor:pointer}.button:hover{background:var(--dark)}.card{padding:1.2rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 3px 12px #9a341212}.card h2{margin:.35rem 0 .75rem;font-size:1.08rem}.badge{display:inline-block;padding:.2rem .55rem;border-radius:999px;background:#ffedd5;color:var(--dark);font-size:.75rem;font-weight:bold;text-transform:uppercase}.definition{margin:.7rem 0;padding:.7rem .85rem;border-left:4px solid var(--orange);border-radius:6px;background:var(--pale);color:#7c2d12}.options{display:grid;gap:.65rem}.option{display:flex;gap:.7rem;align-items:center;padding:.8rem;border:2px solid #e7e5e4;border-radius:9px;cursor:pointer}.option:hover{border-color:#fb923c;background:var(--pale)}.option input{width:18px;height:18px;accent-color:var(--orange)}.correct{border-color:#16a34a!important;background:var(--green-bg)!important;color:var(--green);font-weight:bold}.incorrect{border-color:#dc2626!important;background:var(--red-bg)!important;color:var(--red);font-weight:bold}.match-select{width:100%;padding:.75rem;border:2px solid #e7e5e4;border-radius:8px;font:inherit}.match-row{display:grid;grid-template-columns:1fr 1.2fr;gap:.7rem;align-items:center;padding:.65rem;margin:.5rem 0;border:1px solid #e7e5e4;border-radius:8px}.feedback{display:none;margin-top:.9rem;padding:.8rem;border-radius:8px;font-weight:bold}.feedback.show{display:block}.feedback.good{background:var(--green-bg);color:var(--green)}.feedback.bad{background:var(--red-bg);color:var(--red)}#finalScore{padding:1.2rem;border:2px solid var(--orange);border-radius:12px;background:#ffedd5;color:var(--dark);text-align:center;font-size:1.15rem;font-weight:bold}@media(max-width:600px){.status{top:78px;flex-direction:column;align-items:stretch}.match-row{grid-template-columns:1fr}.button{width:100%}}
+    :root{--orange:#ea580c;--dark:#9a3412;--pale:#fff7ed;--line:#fed7aa;--text:#292524;--green:#166534;--green-bg:#dcfce7;--red:#b91c1c;--red-bg:#fee2e2;--blue-bg:#dbeafe;--blue-border:#93c5fd}
+    *{box-sizing:border-box}
+    body{margin:0;background:#fffaf5;color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.45}
+    header{padding:2.2rem 1rem;color:#fff;text-align:center;background:linear-gradient(135deg,var(--dark),var(--orange))}
+    header h1{margin:0}
+    header p{max-width:860px;margin:.75rem auto 0}
+    .progress-shell{position:sticky;top:0;z-index:10;padding:.7rem 1rem;background:#fffaf5ee;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+    .track{max-width:1000px;height:18px;margin:auto;overflow:hidden;border:1px solid var(--dark);border-radius:999px;background:#fed7aa}
+    .fill{width:0;height:100%;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ea580c 0 12px,#fb923c 12px 24px);background-size:34px 34px;transition:width .4s ease;animation:roll 1s linear infinite}
+    @keyframes roll{to{background-position:34px 0}}
+    #progressText{text-align:center;margin:.4rem 0 0;color:var(--dark);font-weight:bold}
+    .container{width:min(100% - 2rem,1000px);margin:1.5rem auto 3rem}
+    .status{position:sticky;top:82px;z-index:9;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem;margin-bottom:1rem;border:1px solid var(--blue-border);border-radius:12px;background:var(--blue-bg);box-shadow:0 3px 12px #9a34121a}
+    .button{border:0;border-radius:8px;padding:.7rem 1rem;color:#fff;background:var(--orange);font-weight:bold;cursor:pointer}
+    .button:hover{background:var(--dark)}
+    .card{padding:1.2rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 3px 12px #9a341212}
+    .card h2{margin:.35rem 0 .75rem;font-size:1.08rem}
+    .badge{display:inline-block;padding:.2rem .55rem;border-radius:999px;background:#ffedd5;color:var(--dark);font-size:.75rem;font-weight:bold;text-transform:uppercase}
+    .definition{margin:.7rem 0;padding:.7rem .85rem;border-left:4px solid var(--orange);border-radius:6px;background:var(--pale);color:#7c2d12}
+    .options{display:grid;gap:.65rem}
+    .option{display:flex;gap:.7rem;align-items:center;padding:.8rem;border:2px solid #e7e5e4;border-radius:9px;cursor:pointer}
+    .option:hover{border-color:#fb923c;background:var(--pale)}
+    .option input{width:18px;height:18px;accent-color:var(--orange)}
+    .correct{border-color:#16a34a!important;background:var(--green-bg)!important;color:var(--green);font-weight:bold}
+    .incorrect{border-color:#dc2626!important;background:var(--red-bg)!important;color:var(--red);font-weight:bold}
+    .match-select{width:100%;padding:.75rem;border:2px solid #e7e5e4;border-radius:8px;font:inherit}
+    .match-row{display:grid;grid-template-columns:1fr 1.2fr;gap:.7rem;align-items:center;padding:.65rem;margin:.5rem 0;border:1px solid #e7e5e4;border-radius:8px}
+    .feedback{display:none;margin-top:.9rem;padding:.8rem;border-radius:8px;font-weight:bold}
+    .feedback.show{display:block}
+    .feedback.good{background:var(--green-bg);color:var(--green)}
+    .feedback.bad{background:var(--red-bg);color:var(--red)}
+    #finalScore{padding:1.2rem;border:2px solid var(--orange);border-radius:12px;background:#ffedd5;color:var(--dark);text-align:center;font-size:1.15rem;font-weight:bold}
+
+    /* Floating timer button */
+    #timerBtn{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:.25rem;background:#fff;border:2px solid var(--orange);border-radius:14px;padding:.6rem .7rem;cursor:pointer;box-shadow:0 4px 16px rgba(154,52,18,.18);transition:transform .2s ease,box-shadow .2s ease;font-family:inherit;color:var(--dark)}
+    #timerBtn:hover,#timerBtn:focus-visible{transform:translateY(-50%) scale(1.15);box-shadow:0 8px 24px rgba(154,52,18,.28);outline:2px solid var(--orange);outline-offset:2px}
+    #timerBtn .clock-icon{font-size:1.6rem;line-height:1}
+    #timerBtn .timer-display{font-size:.85rem;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:.05em;min-width:5ch;text-align:center}
+    #timerBtn .timer-action{font-size:.7rem;color:var(--orange);text-align:center}
+
+    /* Confetti canvas */
+    #confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:200}
+
+    /* Completion overlay */
+    #completionView{display:none;position:fixed;inset:0;z-index:150;background:rgba(255,247,237,.97);overflow-y:auto;padding:2rem 1rem}
+    #completionView.show{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+    #completionView h2{font-size:2rem;color:var(--dark);margin-bottom:.5rem}
+    #completionView .great-work{font-size:2.4rem;font-weight:bold;color:var(--orange);margin:.5rem 0 1.5rem;text-align:center}
+    #completionView .stats-grid{display:grid;grid-template-columns:auto auto;gap:.75rem 2rem;margin:1rem 0 2rem;font-size:1.05rem}
+    #completionView .stats-grid dt{font-weight:bold;color:var(--dark)}
+    #completionView .stats-grid dd{margin:0;font-variant-numeric:tabular-nums}
+    #completionView .retry-btn{font-size:1.1rem;padding:1rem 2.5rem}
+
+    @media(max-width:600px){
+      .status{top:78px;flex-direction:column;align-items:stretch}
+      .match-row{grid-template-columns:1fr}
+      .button{width:100%}
+      #timerBtn{right:.4rem;padding:.45rem .5rem}
+      #timerBtn .clock-icon{font-size:1.3rem}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .fill{animation:none}
+      #timerBtn{transition:none}
+    }
   </style>
 </head>
 <body>
@@ -19,59 +82,84 @@
 </section>
 <main class="container">
   <section class="status">
-    <strong id="score">Score: 0 / 100</strong>
+    <strong id="score">Score: 0 / 100 | Answered: 0 / 100</strong>
     <button id="reset" class="button" type="button">Reset and Shuffle Quiz</button>
   </section>
   <section id="quiz" aria-label="Quiz questions"></section>
   <section id="finalScore" aria-live="polite">Current score: 0.0% (0 correct out of 100)</section>
 </main>
+
+<!-- Floating timer -->
+<button id="timerBtn" type="button" aria-label="Quiz timer — click to pause or resume" title="Quiz timer">
+  <span class="clock-icon" aria-hidden="true">⏰</span>
+  <span class="timer-display" id="timerDisplay">00:00:00</span>
+  <span class="timer-action" id="timerAction">Pause</span>
+</button>
+
+<!-- Confetti canvas -->
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+<!-- Completion overlay -->
+<div id="completionView" role="dialog" aria-modal="true" aria-labelledby="completionHeading">
+  <h2 id="completionHeading">Quiz Complete!</h2>
+  <p class="great-work">Great work!</p>
+  <dl class="stats-grid">
+    <dt>Total time</dt><dd id="statTime">—</dd>
+    <dt>Correct</dt><dd id="statCorrect">—</dd>
+    <dt>Incorrect</dt><dd id="statIncorrect">—</dd>
+    <dt>Avg. time per question</dt><dd id="statAvg">—</dd>
+  </dl>
+  <button id="retryBtn" class="button retry-btn" type="button">Re-attempt Quiz</button>
+</div>
+
 <script>
 'use strict';
 
+/* ── Glossary ─────────────────────────────────────────────────────────────── */
 const glossary = [
-  { term: 'DevSecOps', definition: 'Integrates security practices into software delivery from planning through operations.', citation: '(Module 1, Slide 6)' },
-  { term: 'CIA Triad', definition: 'Balances confidentiality, integrity, and availability in security decisions.', citation: '(Module 1, Slide 10)' },
-  { term: 'Shift Left Security', definition: 'Moves security checks earlier in the lifecycle to reduce downstream risk and cost.', citation: '(Module 1, Slide 14)' },
-  { term: 'Threat Modeling', definition: 'Systematically identifies attack paths, trust boundaries, and mitigations before implementation.', citation: '(Module 1, Slide 18)' },
-  { term: 'SAST', definition: 'Static Application Security Testing reviews source or bytecode without executing the app.', citation: '(Module 2, Slide 9)' },
-  { term: 'DAST', definition: 'Dynamic Application Security Testing probes a running application externally.', citation: '(Module 2, Slide 12)' },
-  { term: 'SCA', definition: 'Software Composition Analysis identifies third-party components and known vulnerabilities.', citation: '(Module 2, Slide 15)' },
-  { term: 'SBOM', definition: 'Software Bill of Materials inventories software components for dependency transparency.', citation: '(Module 2, Slide 17)' },
-  { term: 'CVE', definition: 'Common Vulnerabilities and Exposures provides standardized vulnerability identifiers.', citation: '(Module 2, Slide 20)' },
-  { term: 'CVSS', definition: 'Common Vulnerability Scoring System rates vulnerability severity consistently.', citation: '(Module 2, Slide 22)' },
-  { term: 'CI', definition: 'Continuous Integration frequently merges changes with automated build and test checks.', citation: '(Module 3, Slide 6)' },
-  { term: 'CD', definition: 'Continuous Delivery/Deployment automates release flow after quality and security gates.', citation: '(Module 3, Slide 9)' },
-  { term: 'Pipeline as Code', definition: 'Stores CI/CD workflow definitions in version control for repeatability and review.', citation: '(Module 3, Slide 11)' },
-  { term: 'IaC', definition: 'Infrastructure as Code provisions environments from versioned configuration files.', citation: '(Module 3, Slide 14)' },
-  { term: 'Least Privilege', definition: 'Grants only the minimum permissions required to complete a task.', citation: '(Module 4, Slide 5)' },
-  { term: 'RBAC', definition: 'Role-Based Access Control assigns permissions to roles, then users inherit role permissions.', citation: '(Module 4, Slide 8)' },
-  { term: 'ABAC', definition: 'Attribute-Based Access Control evaluates user, resource, and context attributes for authorization.', citation: '(Module 4, Slide 10)' },
-  { term: 'MFA', definition: 'Multi-Factor Authentication requires two or more factor categories for login.', citation: '(Module 4, Slide 12)' },
-  { term: 'PAM', definition: 'Privileged Access Management controls, audits, and limits elevated account usage.', citation: '(Module 4, Slide 15)' },
-  { term: 'AAA', definition: 'Authentication, Authorization, and Accounting verify identity, permit actions, and record activity.', citation: '(Module 4, Slide 17)' },
-  { term: 'TLS', definition: 'Transport Layer Security encrypts data in transit and protects integrity.', citation: '(Module 5, Slide 7)' },
-  { term: 'HTTPS', definition: 'HTTP over TLS secures browser-server communication against interception and tampering.', citation: '(Module 5, Slide 9)' },
-  { term: 'PKI', definition: 'Public Key Infrastructure manages certificates, trust chains, and key validation.', citation: '(Module 5, Slide 12)' },
-  { term: 'HMAC', definition: 'Hash-based Message Authentication Code combines a shared secret and hash function for integrity/authenticity checks.', citation: '(Module 5, Slide 15)' },
-  { term: 'Hashing', definition: 'Transforms input data into a fixed-length digest for integrity-oriented use cases.', citation: '(Module 5, Slide 17)' },
-  { term: 'Salting', definition: 'Adds unique random data before password hashing to resist precomputed attacks.', citation: '(Module 5, Slide 19)' },
-  { term: 'Input Validation', definition: 'Rejects malformed or unsafe input by enforcing expected type, format, and range.', citation: '(Module 6, Slide 6)' },
-  { term: 'Output Encoding', definition: 'Encodes untrusted data for its output context so browsers treat it as data, not code.', citation: '(Module 6, Slide 9)' },
-  { term: 'SQL Injection', definition: 'Occurs when untrusted input changes intended SQL query structure.', citation: '(Module 6, Slide 12)' },
-  { term: 'XSS', definition: 'Cross-Site Scripting executes attacker-controlled script in a user browser context.', citation: '(Module 6, Slide 14)' },
-  { term: 'CSRF', definition: 'Cross-Site Request Forgery tricks a logged-in browser into sending unintended state-changing requests.', citation: '(Module 6, Slide 16)' },
-  { term: 'CSP', definition: 'Content Security Policy restricts allowed content sources to reduce script injection impact.', citation: '(Module 6, Slide 18)' },
-  { term: 'SIEM', definition: 'Security Information and Event Management centralizes and correlates logs for detection and response.', citation: '(Module 3, Slide 20)' },
-  { term: 'IDS', definition: 'Intrusion Detection System monitors traffic/events to detect suspicious behavior.', citation: '(Module 3, Slide 22)' },
-  { term: 'JWT', definition: 'JSON Web Token is a compact claims token that must be validated carefully.', citation: '(Module 4, Slide 20)' },
-  { term: 'OAuth 2.0', definition: 'Delegated authorization framework that grants scoped access without sharing user passwords.', citation: '(Module 4, Slide 22)' },
-  { term: 'Secrets Management', definition: 'Stores and rotates credentials through controlled vaulting instead of hardcoding.', citation: '(Module 3, Slide 24)' },
-  { term: 'Zero Trust', definition: 'Assumes no implicit trust and continuously verifies identity, device, and context.', citation: '(Module 1, Slide 22)' }
+  { term: 'DevSecOps', definition: 'integrates security practices into every phase of the software delivery pipeline, from planning through operations.', citation: '(Module 1, Slide 6)' },
+  { term: 'CIA Triad', definition: 'balances confidentiality (preventing unauthorized disclosure), integrity (preventing unauthorized modification), and availability (ensuring reliable access) in security decisions.', citation: '(Module 1, Slide 10)' },
+  { term: 'Shift Left Security', definition: 'moves security activities earlier in the SDLC to detect and fix vulnerabilities when they are least expensive to address.', citation: '(Module 1, Slide 14)' },
+  { term: 'Threat Modeling', definition: 'systematically identifies attack paths, trust boundaries, and mitigations before implementation to reduce design-level risk.', citation: '(Module 1, Slide 18)' },
+  { term: 'SAST', definition: 'Static Application Security Testing — reviews source code or bytecode for vulnerabilities without executing the application.', citation: '(Module 2, Slide 9)' },
+  { term: 'DAST', definition: 'Dynamic Application Security Testing — probes a live, running application from the outside to discover runtime vulnerabilities.', citation: '(Module 2, Slide 12)' },
+  { term: 'SCA', definition: 'Software Composition Analysis — identifies and inventories third-party and open-source components, flagging known CVEs.', citation: '(Module 2, Slide 15)' },
+  { term: 'SBOM', definition: 'Software Bill of Materials — a formal machine-readable inventory of software components and their dependencies that supports supply-chain transparency.', citation: '(Module 2, Slide 17)' },
+  { term: 'CVE', definition: 'Common Vulnerabilities and Exposures — a publicly maintained dictionary that assigns standardized identifiers to disclosed security vulnerabilities.', citation: '(Module 2, Slide 20)' },
+  { term: 'CVSS', definition: 'Common Vulnerability Scoring System — provides a standardized numerical rating (0–10) for vulnerability severity based on exploitability and impact metrics.', citation: '(Module 2, Slide 22)' },
+  { term: 'CI', definition: 'Continuous Integration — a practice where developers frequently merge code changes into a shared branch, triggering automated build and test pipelines to detect integration problems early.', citation: '(Module 3, Slide 6)' },
+  { term: 'CD', definition: 'Continuous Delivery/Deployment — automates the release pipeline so code that passes quality and security gates can be delivered to production reliably and on demand.', citation: '(Module 3, Slide 9)' },
+  { term: 'Pipeline as Code', definition: 'stores CI/CD workflow definitions in version control, enabling peer review, auditability, and repeatable execution.', citation: '(Module 3, Slide 11)' },
+  { term: 'IaC', definition: 'Infrastructure as Code — provisions and manages computing environments from versioned, declarative configuration files rather than manual administration.', citation: '(Module 3, Slide 14)' },
+  { term: 'Least Privilege', definition: 'grants each user, process, or system component only the minimum permissions needed to perform its defined function.', citation: '(Module 4, Slide 5)' },
+  { term: 'RBAC', definition: 'Role-Based Access Control — assigns permissions to predefined roles and then associates users with those roles, simplifying permission management at scale.', citation: '(Module 4, Slide 8)' },
+  { term: 'ABAC', definition: 'Attribute-Based Access Control — makes authorization decisions by evaluating user attributes, resource attributes, and environmental context against policy rules.', citation: '(Module 4, Slide 10)' },
+  { term: 'MFA', definition: 'Multi-Factor Authentication — requires a user to provide credentials from two or more distinct factor categories (knowledge, possession, inherence) before granting access.', citation: '(Module 4, Slide 12)' },
+  { term: 'PAM', definition: 'Privileged Access Management — enforces strict controls over elevated accounts, including just-in-time provisioning, session recording, and credential vaulting.', citation: '(Module 4, Slide 15)' },
+  { term: 'AAA', definition: 'Authentication, Authorization, and Accounting — verifies identity, determines permitted actions, and logs activity for auditability.', citation: '(Module 4, Slide 17)' },
+  { term: 'TLS', definition: 'Transport Layer Security — a cryptographic protocol that provides confidentiality, integrity, and server authentication for data transmitted over a network.', citation: '(Module 5, Slide 7)' },
+  { term: 'HTTPS', definition: 'HTTP over TLS — secures browser-to-server communication by layering the HTTP application protocol over a TLS session.', citation: '(Module 5, Slide 9)' },
+  { term: 'PKI', definition: 'Public Key Infrastructure — the set of policies, roles, hardware, software, and procedures needed to issue, manage, distribute, and revoke digital certificates.', citation: '(Module 5, Slide 12)' },
+  { term: 'HMAC', definition: 'Hash-based Message Authentication Code — combines a shared secret key with a cryptographic hash function to produce a tag that verifies both message integrity and authenticity.', citation: '(Module 5, Slide 15)' },
+  { term: 'Hashing', definition: 'transforms arbitrary-length input data into a fixed-length digest; a one-way operation widely used for integrity verification and password storage.', citation: '(Module 5, Slide 17)' },
+  { term: 'Salting', definition: 'prepends or appends unique random data to each password before hashing, preventing precomputed rainbow-table attacks and ensuring identical passwords produce different digests.', citation: '(Module 5, Slide 19)' },
+  { term: 'Input Validation', definition: 'rejects or sanitizes data that does not conform to expected type, format, length, and range constraints before it is processed.', citation: '(Module 6, Slide 6)' },
+  { term: 'Output Encoding', definition: 'transforms untrusted data into a safe representation appropriate for its output context so that browsers interpret it as data rather than executable code.', citation: '(Module 6, Slide 9)' },
+  { term: 'SQL Injection', definition: 'occurs when an attacker embeds malicious SQL fragments into a query, altering the intended query structure and potentially accessing or modifying unauthorized data.', citation: '(Module 6, Slide 12)' },
+  { term: 'XSS', definition: 'Cross-Site Scripting — injects attacker-controlled script into a trusted web page that executes in other users\' browsers, potentially stealing session tokens or performing actions on their behalf.', citation: '(Module 6, Slide 14)' },
+  { term: 'CSRF', definition: 'Cross-Site Request Forgery — tricks an authenticated browser into submitting a forged state-changing request to a trusted server without the user\'s knowledge.', citation: '(Module 6, Slide 16)' },
+  { term: 'CSP', definition: 'Content Security Policy — an HTTP response header that restricts which content sources browsers may load, reducing the blast radius of script injection attacks.', citation: '(Module 6, Slide 18)' },
+  { term: 'SIEM', definition: 'Security Information and Event Management — aggregates and correlates log data from across an environment to detect threats and support incident response.', citation: '(Module 3, Slide 20)' },
+  { term: 'IDS', definition: 'Intrusion Detection System — monitors network traffic and host events, generating alerts when patterns match known attack signatures or anomaly baselines.', citation: '(Module 3, Slide 22)' },
+  { term: 'JWT', definition: 'JSON Web Token — a compact, URL-safe claims token that must be cryptographically validated on every use; compromise of the signing key allows forgery.', citation: '(Module 4, Slide 20)' },
+  { term: 'OAuth 2.0', definition: 'a delegated authorization framework that lets a resource owner grant a third-party application scoped access to resources without sharing credentials.', citation: '(Module 4, Slide 22)' },
+  { term: 'Secrets Management', definition: 'stores, rotates, and audits credentials through a controlled vault rather than embedding them in source code or configuration files.', citation: '(Module 3, Slide 24)' },
+  { term: 'Zero Trust', definition: 'an architecture that removes implicit network-perimeter trust and instead continuously verifies identity, device health, and context for every access request.', citation: '(Module 1, Slide 22)' }
 ];
 
 const MAX_QUESTIONS = 100;
-const THREE_QUESTION_TERMS = new Set(glossary.slice(0, 24).map(item => item.term));
 
+/* ── Helpers ──────────────────────────────────────────────────────────────── */
 function shuffle(arr) {
   const out = [...arr];
   for (let i = out.length - 1; i > 0; i -= 1) {
@@ -89,22 +177,25 @@ function otherDefinitions(currentTerm, take = 3) {
   return shuffle(glossary.filter(item => item.term !== currentTerm).map(item => item.definition)).slice(0, take);
 }
 
+/* ── Question factories ───────────────────────────────────────────────────── */
 function makeMcQuestion(item, index) {
   const stems = [
-    `A release manager says the team should "secure it later" after shipping. Which concept best counters that plan?`,
-    `During sprint planning, the team wants a control that continuously lowers risk throughout delivery. Which concept fits best?`,
-    `In a post-incident review, which concept most directly guides this improvement decision?`,
-    `Which description best captures the role of ${item.term} in a practical DevSecOps workflow?`
+    `A security architect is designing a new CI/CD pipeline and needs a control that embeds protective measures throughout <em>every stage</em> of delivery. Which concept best describes this approach?`,
+    `During a sprint retrospective, the team discovers that a critical vulnerability was found in production that could have been caught weeks earlier. Which <em>proactive</em> security practice would have prevented this late detection?`,
+    `An auditor reviewing the pipeline recommends integrating a control that <em>continuously</em> lowers security risk throughout the software delivery lifecycle. Which concept fits this recommendation?`,
+    `In a post-incident review, the team is deciding which security concept to adopt in order to better align with <em>defense-in-depth</em> principles. Which concept most directly guides this decision?`,
+    `A release manager argues that the team should "ship first and secure later." Which concept best counters this argument by demonstrating that <em>early</em> security integration is both more effective and less costly?`,
+    `A fourth-year cybersecurity student is asked to select the control that <em>most accurately</em> matches its course-defined role in a DevSecOps workflow. Which concept applies here?`
   ];
 
   return {
     type: 'Multiple Choice',
     term: item.term,
     definition: item.definition,
-    q: `${stems[index % stems.length]} (${item.term})`,
+    q: stems[index % stems.length],
     options: shuffle([item.definition, ...otherDefinitions(item.term, 3)]),
     correct: item.definition,
-    explanation: `${item.term} is the best fit because ${item.definition}`,
+    explanation: `${item.term} is defined as the concept that ${item.definition}`,
     citation: item.citation,
     wrongWhy: 'the selected statement describes a different security concept or control'
   };
@@ -113,75 +204,98 @@ function makeMcQuestion(item, index) {
 function makeTfQuestion(item, index) {
   const accurate = index % 2 === 0;
   const statement = accurate
-    ? `${item.term} is accurately described as: ${item.definition}`
-    : `${item.term} means teams can skip security checks if delivery speed is high.`;
+    ? `${item.term} ${item.definition}`
+    : `${item.term} permits security controls to be deferred when delivery speed is the highest business priority.`;
+
+  const tfStems = [
+    `Evaluate the following claim as it might appear in an architecture review document:`,
+    `A junior developer asserts the following in a design meeting. Determine whether it is correct:`,
+    `Consider the following statement from a course study guide and assess its accuracy:`,
+    `An external auditor made the following finding in their report. Is it accurate?`
+  ];
 
   return {
     type: 'True / False',
     term: item.term,
     definition: item.definition,
-    q: `Evaluate this claim used in an architecture review: ${statement}`,
+    q: `${tfStems[index % tfStems.length]} <em>"${statement}"</em>`,
     options: ['True', 'False'],
     correct: accurate ? 'True' : 'False',
     explanation: accurate
-      ? `The claim is correct. ${item.term} is defined as ${item.definition}`
-      : `The claim is false. ${item.term} does not permit bypassing security; it is defined as ${item.definition}`,
+      ? `The statement is accurate. ${item.term} ${item.definition}`
+      : `The statement is false. ${item.term} does not permit bypassing security controls; rather, it ${item.definition}`,
     citation: item.citation,
     wrongWhy: 'the truth value conflicts with the course definition and secure-practice intent'
   };
 }
 
-function makeMultiSelectQuestion(item) {
-  const correctA = `${item.term} helps by applying this principle: ${item.definition}`;
-  const correctB = `${item.term} should be used to reduce risk before production impact grows.`;
+function makeMultiSelectQuestion(item, index) {
+  const correctA = `${item.term} is most valuable because it ${item.definition}`;
+  const correctB = `${item.term} should be applied proactively to reduce security risk before its impact reaches production.`;
   const distractors = [
-    `${item.term} is primarily a way to store secrets in plaintext for fast debugging.`,
-    `${item.term} replaces all other controls, so teams can disable layered defenses.`
+    `${item.term} is primarily used to store credentials in plaintext, enabling rapid debugging of production secrets.`,
+    `${item.term} replaces all other layered controls, making defense-in-depth strategies unnecessary.`
+  ];
+
+  const multiStems = [
+    `Select <em>all</em> statements that accurately describe how ${item.term} should be applied within a mature DevSecOps environment.`,
+    `A security team is evaluating documentation on ${item.term}. Which of the following statements are correct? Select <em>all that apply</em>.`,
+    `From the list below, identify <em>every</em> statement that is consistent with the course-defined role of ${item.term}.`
   ];
 
   return {
     type: 'Multi-select',
     term: item.term,
     definition: item.definition,
-    q: `Select all statements that correctly reflect how ${item.term} should be applied in practice.`,
+    q: multiStems[index % multiStems.length],
     options: shuffle([correctA, correctB, ...distractors]),
     correct: [correctA, correctB],
-    explanation: `${item.term} should align with defense-in-depth and practical risk reduction: ${item.definition}`,
+    explanation: `${item.term} should be applied in alignment with defense-in-depth principles: it ${item.definition}`,
     citation: item.citation,
-    wrongWhy: 'the selected set includes unsafe claims or omits key course-aligned properties'
+    wrongWhy: 'the selected set includes inaccurate claims or omits key course-aligned properties'
   };
 }
 
-function makeMatchingQuestion(item) {
+function makeMatchingQuestion(item, index) {
   const decoys = [
-    'Temporary bypass that disables security gates to speed delivery',
-    'Method for storing production secrets directly in source code',
-    'One-time control that eliminates all future cyber risk'
+    'A temporary bypass that disables security gates in order to accelerate delivery timelines.',
+    'A method for storing production credentials directly in version-controlled source code.',
+    'A one-time control that eliminates all future cyber risk once deployed.'
+  ];
+
+  const matchStems = [
+    `Match the term <strong>${item.term}</strong> to the definition that best corresponds to its usage in the course material.`,
+    `An incident-response worksheet lists the following term. Select the definition that <em>most accurately</em> captures it: <strong>${item.term}</strong>`,
+    `In a security control catalogue, the term <strong>${item.term}</strong> appears. Which definition correctly describes it?`
   ];
 
   return {
     type: 'Matching',
     term: item.term,
     definition: item.definition,
-    q: `Match this term to its best definition in the incident-response prep worksheet: ${item.term}`,
+    q: matchStems[index % matchStems.length],
     pairs: [[item.term, item.definition]],
     options: shuffle([item.definition, ...decoys]),
-    explanation: `${item.term} corresponds to this definition: ${item.definition}`,
+    explanation: `${item.term} is correctly defined as the concept that ${item.definition}`,
     citation: item.citation,
-    wrongWhy: 'the chosen match does not represent the term used in course material'
+    wrongWhy: 'the chosen match does not correspond to the definition used in the course material'
   };
 }
 
+/* ── Build pool ───────────────────────────────────────────────────────────── */
 function buildQuestionPool() {
   const pool = [];
+  const maxPer = 3;
   glossary.forEach((item, index) => {
     pool.push(makeMcQuestion(item, index));
     pool.push(makeTfQuestion(item, index));
-    if (THREE_QUESTION_TERMS.has(item.term)) {
-      pool.push(index % 2 === 0 ? makeMultiSelectQuestion(item) : makeMatchingQuestion(item));
+    if (index % 2 === 0) {
+      pool.push(makeMultiSelectQuestion(item, index));
+    } else {
+      pool.push(makeMatchingQuestion(item, index));
     }
   });
-  return pool.slice(0, MAX_QUESTIONS);
+  return pool.slice(0, MAX_QUESTIONS + 20); // build a slightly larger pool so shuffle can pick 100
 }
 
 const baseQuestionPool = buildQuestionPool();
@@ -190,27 +304,170 @@ let shownDefinitions = new Set();
 let answered = 0;
 let correctCount = 0;
 
+/* ── DOM refs ─────────────────────────────────────────────────────────────── */
 const quiz = document.getElementById('quiz');
 const score = document.getElementById('score');
 const fill = document.getElementById('fill');
 const track = document.getElementById('track');
 const progressText = document.getElementById('progressText');
 const finalScore = document.getElementById('finalScore');
+const completionView = document.getElementById('completionView');
 
+/* ── Timer ────────────────────────────────────────────────────────────────── */
+let timerMs = 0;
+let timerRunning = false;
+let timerInterval = null;
+let quizStartTime = null;
+let quizDone = false;
+
+function formatHMS(ms) {
+  const total = Math.floor(ms / 1000);
+  const h = String(Math.floor(total / 3600)).padStart(2, '0');
+  const m = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+  const s = String(total % 60).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+function startTimer() {
+  if (timerRunning || quizDone) return;
+  timerRunning = true;
+  quizStartTime = Date.now() - timerMs;
+  timerInterval = setInterval(() => {
+    timerMs = Date.now() - quizStartTime;
+    document.getElementById('timerDisplay').textContent = formatHMS(timerMs);
+  }, 500);
+  document.getElementById('timerAction').textContent = 'Pause';
+}
+
+function pauseTimer() {
+  if (!timerRunning) return;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  document.getElementById('timerAction').textContent = 'Resume';
+}
+
+function stopTimer() {
+  pauseTimer();
+  quizDone = true;
+  document.getElementById('timerAction').textContent = 'Done';
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerRunning = false;
+  timerMs = 0;
+  quizDone = false;
+  document.getElementById('timerDisplay').textContent = '00:00:00';
+  document.getElementById('timerAction').textContent = 'Pause';
+}
+
+document.getElementById('timerBtn').addEventListener('click', () => {
+  if (quizDone) return;
+  if (timerRunning) { pauseTimer(); } else { startTimer(); }
+});
+document.getElementById('timerBtn').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('timerBtn').click(); }
+});
+
+/* ── Confetti ─────────────────────────────────────────────────────────────── */
+const confettiCanvas = document.getElementById('confettiCanvas');
+const confettiCtx = confettiCanvas.getContext('2d');
+let confettiParticles = [];
+let confettiAnim = null;
+let lastMilestone = 0;
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function spawnConfetti() {
+  if (REDUCED_MOTION) return;
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+  const colors = ['#ea580c','#fb923c','#fbbf24','#34d399','#60a5fa','#a78bfa','#f472b6','#f87171'];
+  for (let i = 0; i < 160; i++) {
+    confettiParticles.push({
+      x: Math.random() * confettiCanvas.width,
+      y: -20 - Math.random() * 60,
+      w: 8 + Math.random() * 8,
+      h: 4 + Math.random() * 6,
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.15,
+      vx: (Math.random() - 0.5) * 4,
+      vy: 2 + Math.random() * 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      life: 1
+    });
+  }
+  if (!confettiAnim) {
+    confettiAnim = requestAnimationFrame(animateConfetti);
+  }
+}
+
+function animateConfetti() {
+  confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confettiParticles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.07;
+    p.angle += p.spin;
+    p.life -= 0.008;
+    confettiCtx.save();
+    confettiCtx.globalAlpha = Math.max(0, p.life);
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate(p.angle);
+    confettiCtx.fillStyle = p.color;
+    confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    confettiCtx.restore();
+  });
+  confettiParticles = confettiParticles.filter(p => p.life > 0 && p.y < confettiCanvas.height + 40);
+  if (confettiParticles.length > 0) {
+    confettiAnim = requestAnimationFrame(animateConfetti);
+  } else {
+    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    confettiAnim = null;
+  }
+}
+
+function checkMilestone() {
+  const milestone = Math.floor(correctCount / 10) * 10;
+  if (milestone > 0 && milestone > lastMilestone) {
+    lastMilestone = milestone;
+    spawnConfetti();
+  }
+}
+
+/* ── Score / progress update ─────────────────────────────────────────────── */
 function update() {
-  const total = attemptQuestions.length;
-  const pct = total ? (correctCount / total) * 100 : 0;
-  const done = total ? (answered / total) * 100 : 0;
+  const total = MAX_QUESTIONS;
+  const done = (answered / total) * 100;
+  fill.style.width = done + '%';
+  track.setAttribute('aria-valuenow', done.toFixed(0));
   score.textContent = `Score: ${correctCount} / ${total} | Answered: ${answered} / ${total}`;
   finalScore.textContent = answered === total
-    ? `Quiz complete — final score: ${pct.toFixed(1)}% (${correctCount} correct out of ${total})`
-    : `Current score: ${pct.toFixed(1)}% (${correctCount} correct out of ${total})`;
-  fill.style.width = `${done}%`;
-  track.setAttribute('aria-valuemax', String(total));
-  track.setAttribute('aria-valuenow', String(answered));
+    ? `Final score: ${((correctCount / total) * 100).toFixed(1)}% (${correctCount} correct out of ${total})`
+    : `Current score: ${((correctCount / total) * 100).toFixed(1)}% (${correctCount} correct out of ${total})`;
   progressText.textContent = `Progress: ${answered} of ${total} questions completed (${done.toFixed(0)}%)`;
 }
 
+/* ── Completion view ─────────────────────────────────────────────────────── */
+function showCompletion() {
+  stopTimer();
+  const avg = MAX_QUESTIONS > 0 ? timerMs / MAX_QUESTIONS : 0;
+  document.getElementById('statTime').textContent = formatHMS(timerMs);
+  document.getElementById('statCorrect').textContent = correctCount;
+  document.getElementById('statIncorrect').textContent = MAX_QUESTIONS - correctCount;
+  document.getElementById('statAvg').textContent = formatHMS(avg);
+  completionView.classList.add('show');
+  completionView.focus();
+}
+
+document.getElementById('retryBtn').addEventListener('click', () => {
+  completionView.classList.remove('show');
+  document.getElementById('reset').click();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ── Feedback helpers ─────────────────────────────────────────────────────── */
 function formatCorrectAnswer(question) {
   if (Array.isArray(question.correct)) return question.correct.join(' | ');
   if (question.pairs) return question.pairs.map(pair => pair.join(' → ')).join('; ');
@@ -223,44 +480,46 @@ function showFeedback(card, ok, question, selected) {
   if (ok) {
     feedback.textContent = `Correct. ${question.explanation} ${question.citation}`;
     feedback.className = 'feedback show good';
-    return;
+  } else {
+    feedback.textContent = `Incorrect. You selected "${selected}"; this is incorrect because ${question.wrongWhy}. The correct answer is "${answerText}". ${question.explanation} ${question.citation}`;
+    feedback.className = 'feedback show bad';
   }
-  feedback.textContent = `Incorrect. You selected "${selected}"; this is incorrect because ${question.wrongWhy}. The correct answer is "${answerText}". ${question.explanation} ${question.citation}`;
-  feedback.className = 'feedback show bad';
 }
 
 function finishQuestion(card, ok, question, selected) {
-  if (card.dataset.done) return;
-  card.dataset.done = '1';
-  card.querySelectorAll('input,select,button').forEach(el => {
-    el.disabled = true;
-  });
   answered += 1;
-  if (ok) correctCount += 1;
+  if (ok) { correctCount += 1; }
+  card.querySelectorAll('input, select, button').forEach(el => { el.disabled = true; });
   showFeedback(card, ok, question, selected);
   update();
+  checkMilestone();
+  if (answered === MAX_QUESTIONS) {
+    setTimeout(showCompletion, 800);
+  }
 }
 
-function addButton(card, handler) {
+function addButton(card, onClick) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'button';
+  button.style.marginTop = '.75rem';
   button.textContent = 'Check Answer';
-  button.onclick = handler;
+  button.onclick = onClick;
   card.appendChild(button);
 }
 
+/* ── Card renderer ────────────────────────────────────────────────────────── */
 function createCard(question, index) {
-  const card = document.createElement('article');
+  const card = document.createElement('div');
   card.className = 'card';
+
+  const feedback = document.createElement('div');
+  feedback.className = 'feedback';
 
   const definitionFirstSeen = !shownDefinitions.has(question.term);
   if (definitionFirstSeen) shownDefinitions.add(question.term);
 
   card.innerHTML = `<span class="badge">${question.type}</span><h2>${index + 1}. ${question.q}</h2>${definitionFirstSeen ? `<div class="definition"><strong>${termMeta(question.term)}:</strong> ${question.term} — ${question.definition} ${question.citation}</div>` : ''}`;
-
-  const feedback = document.createElement('p');
-  feedback.className = 'feedback';
 
   if (question.type === 'Multiple Choice' || question.type === 'True / False') {
     const box = document.createElement('div');
@@ -295,7 +554,7 @@ function createCard(question, index) {
     addButton(card, () => {
       const selected = [...box.querySelectorAll('input:checked')].map(i => i.value);
       if (!selected.length) {
-        showFeedback(card, false, question, 'no answer');
+        showFeedback(card, false, question, 'no answer selected');
         return;
       }
       const ok = selected.length === question.correct.length && selected.every(v => question.correct.includes(v));
@@ -306,6 +565,7 @@ function createCard(question, index) {
       finishQuestion(card, ok, question, selected.join('; '));
     });
   } else {
+    // Matching
     const row = document.createElement('div');
     row.className = 'match-row';
     const left = document.createElement('strong');
@@ -323,7 +583,7 @@ function createCard(question, index) {
     card.appendChild(row);
     addButton(card, () => {
       if (!select.value) {
-        showFeedback(card, false, question, 'no answer');
+        showFeedback(card, false, question, 'no answer selected');
         return;
       }
       const correctMatch = question.pairs[0][1];
@@ -337,11 +597,16 @@ function createCard(question, index) {
   return card;
 }
 
+/* ── Init / reset ─────────────────────────────────────────────────────────── */
 function startNewAttempt() {
   attemptQuestions = shuffle(baseQuestionPool).slice(0, MAX_QUESTIONS);
   shownDefinitions = new Set();
   answered = 0;
   correctCount = 0;
+  lastMilestone = 0;
+  quizDone = false;
+  resetTimer();
+  startTimer();
 }
 
 function render() {
@@ -353,6 +618,7 @@ function render() {
 }
 
 document.getElementById('reset').onclick = () => {
+  completionView.classList.remove('show');
   startNewAttempt();
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
