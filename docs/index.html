@@ -39,11 +39,13 @@
     #finalScore{padding:1.2rem;border:2px solid var(--orange);border-radius:12px;background:#ffedd5;color:var(--dark);text-align:center;font-size:1.15rem;font-weight:bold}
 
     /* Floating timer button */
-    #timerBtn{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:.25rem;background:#fff;border:2px solid var(--orange);border-radius:14px;padding:.6rem .7rem;cursor:pointer;box-shadow:0 4px 16px rgba(154,52,18,.18);transition:transform .2s ease,box-shadow .2s ease;font-family:inherit;color:var(--dark)}
+    #timerBtn{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:.25rem;background:#fff;border:2px solid var(--orange);border-radius:14px;padding:.72rem .84rem;cursor:pointer;box-shadow:0 4px 16px rgba(154,52,18,.18);transition:transform .2s ease,box-shadow .2s ease;font-family:inherit;color:var(--dark)}
     #timerBtn:hover,#timerBtn:focus-visible{transform:translateY(-50%) scale(1.15);box-shadow:0 8px 24px rgba(154,52,18,.28);outline:2px solid var(--orange);outline-offset:2px}
-    #timerBtn .clock-icon{font-size:1.6rem;line-height:1}
+    #timerBtn .clock-icon{font-size:1.92rem;line-height:1}
     #timerBtn .timer-display{font-size:.85rem;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:.05em;min-width:5ch;text-align:center}
     #timerBtn .timer-action{font-size:.7rem;color:var(--orange);text-align:center}
+    #quiz{transition:filter .2s ease,opacity .2s ease}
+    #quiz.is-paused{filter:blur(2px);opacity:.2}
 
     /* Confetti canvas */
     #confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:200}
@@ -62,8 +64,8 @@
       .status{top:78px;flex-direction:column;align-items:stretch}
       .match-row{grid-template-columns:1fr}
       .button{width:100%}
-      #timerBtn{right:.4rem;padding:.45rem .5rem}
-      #timerBtn .clock-icon{font-size:1.3rem}
+      #timerBtn{right:.4rem;padding:.54rem .6rem}
+      #timerBtn .clock-icon{font-size:1.56rem}
     }
     @media(prefers-reduced-motion:reduce){
       .fill{animation:none}
@@ -74,19 +76,19 @@
 <body>
 <header>
   <h1>DevSecOps and Cybersecurity Quiz</h1>
-  <p>100 randomized questions across Modules 1–6. Formats: multiple-choice, true/false, multi-select, and matching. Answer options and question order reshuffle on every reset.</p>
+  <p>80 randomized questions across Modules 1–6. Formats: multiple-choice, true/false, multi-select, and matching. Answer options and question order reshuffle on every reset.</p>
 </header>
 <section class="progress-shell" aria-label="Quiz progress">
   <div id="track" class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="fill" class="fill"></div></div>
-  <p id="progressText">Progress: 0 of 100 questions completed (0%)</p>
+  <p id="progressText">Progress: 0 of 80 questions completed (0%)</p>
 </section>
 <main class="container">
   <section class="status">
-    <strong id="score">Score: 0 / 100 | Answered: 0 / 100</strong>
+    <strong id="score">Score: 0 / 80 | Answered: 0 / 80</strong>
     <button id="reset" class="button" type="button">Reset and Shuffle Quiz</button>
   </section>
   <section id="quiz" aria-label="Quiz questions"></section>
-  <section id="finalScore" aria-live="polite">Current score: 0.0% (0 correct out of 100)</section>
+  <section id="finalScore" aria-live="polite">Current score: 0.0% (0 correct out of 80)</section>
 </main>
 
 <!-- Floating timer -->
@@ -157,7 +159,7 @@ const glossary = [
   { term: 'Zero Trust', definition: 'an architecture that removes implicit network-perimeter trust and instead continuously verifies identity, device health, and context for every access request.', citation: '(Module 1, Slide 22)' }
 ];
 
-const MAX_QUESTIONS = 100;
+const MAX_QUESTIONS = 80;
 
 /* ── Helpers ──────────────────────────────────────────────────────────────── */
 function shuffle(arr) {
@@ -179,20 +181,11 @@ function otherDefinitions(currentTerm, take = 3) {
 
 /* ── Question factories ───────────────────────────────────────────────────── */
 function makeMcQuestion(item, index) {
-  const stems = [
-    `A security architect is designing a new CI/CD pipeline and needs a control that embeds protective measures throughout <em>every stage</em> of delivery. Which concept best describes this approach?`,
-    `During a sprint retrospective, the team discovers that a critical vulnerability was found in production that could have been caught weeks earlier. Which <em>proactive</em> security practice would have prevented this late detection?`,
-    `An auditor reviewing the pipeline recommends integrating a control that <em>continuously</em> lowers security risk throughout the software delivery lifecycle. Which concept fits this recommendation?`,
-    `In a post-incident review, the team is deciding which security concept to adopt in order to better align with <em>defense-in-depth</em> principles. Which concept most directly guides this decision?`,
-    `A release manager argues that the team should "ship first and secure later." Which concept best counters this argument by demonstrating that <em>early</em> security integration is both more effective and less costly?`,
-    `A fourth-year cybersecurity student is asked to select the control that <em>most accurately</em> matches its course-defined role in a DevSecOps workflow. Which concept applies here?`
-  ];
-
   return {
     type: 'Multiple Choice',
     term: item.term,
     definition: item.definition,
-    q: stems[index % stems.length],
+    q: `Which definition best describes <strong>${item.term}</strong> in a DevSecOps context?`,
     options: shuffle([item.definition, ...otherDefinitions(item.term, 3)]),
     correct: item.definition,
     explanation: `${item.term} is defined as the concept that ${item.definition}`,
@@ -207,18 +200,11 @@ function makeTfQuestion(item, index) {
     ? `${item.term} ${item.definition}`
     : `${item.term} permits security controls to be deferred when delivery speed is the highest business priority.`;
 
-  const tfStems = [
-    `Evaluate the following claim as it might appear in an architecture review document:`,
-    `A junior developer asserts the following in a design meeting. Determine whether it is correct:`,
-    `Consider the following statement from a course study guide and assess its accuracy:`,
-    `An external auditor made the following finding in their report. Is it accurate?`
-  ];
-
   return {
     type: 'True / False',
     term: item.term,
     definition: item.definition,
-    q: `${tfStems[index % tfStems.length]} <em>"${statement}"</em>`,
+    q: `True or false: <em>"${statement}"</em>`,
     options: ['True', 'False'],
     correct: accurate ? 'True' : 'False',
     explanation: accurate
@@ -237,17 +223,11 @@ function makeMultiSelectQuestion(item, index) {
     `${item.term} replaces all other layered controls, making defense-in-depth strategies unnecessary.`
   ];
 
-  const multiStems = [
-    `Select <em>all</em> statements that accurately describe how ${item.term} should be applied within a mature DevSecOps environment.`,
-    `A security team is evaluating documentation on ${item.term}. Which of the following statements are correct? Select <em>all that apply</em>.`,
-    `From the list below, identify <em>every</em> statement that is consistent with the course-defined role of ${item.term}.`
-  ];
-
   return {
     type: 'Multi-select',
     term: item.term,
     definition: item.definition,
-    q: multiStems[index % multiStems.length],
+    q: `Select <em>all</em> statements that accurately describe ${item.term}.`,
     options: shuffle([correctA, correctB, ...distractors]),
     correct: [correctA, correctB],
     explanation: `${item.term} should be applied in alignment with defense-in-depth principles: it ${item.definition}`,
@@ -263,17 +243,11 @@ function makeMatchingQuestion(item, index) {
     'A one-time control that eliminates all future cyber risk once deployed.'
   ];
 
-  const matchStems = [
-    `Match the term <strong>${item.term}</strong> to the definition that best corresponds to its usage in the course material.`,
-    `An incident-response worksheet lists the following term. Select the definition that <em>most accurately</em> captures it: <strong>${item.term}</strong>`,
-    `In a security control catalogue, the term <strong>${item.term}</strong> appears. Which definition correctly describes it?`
-  ];
-
   return {
     type: 'Matching',
     term: item.term,
     definition: item.definition,
-    q: matchStems[index % matchStems.length],
+    q: `Match the term <strong>${item.term}</strong> to its correct definition.`,
     pairs: [[item.term, item.definition]],
     options: shuffle([item.definition, ...decoys]),
     explanation: `${item.term} is correctly defined as the concept that ${item.definition}`,
@@ -295,7 +269,7 @@ function buildQuestionPool() {
       pool.push(makeMatchingQuestion(item, index));
     }
   });
-  return pool.slice(0, MAX_QUESTIONS + 20); // build a slightly larger pool so shuffle can pick 100
+  return shuffle(pool).slice(0, MAX_QUESTIONS);
 }
 
 const baseQuestionPool = buildQuestionPool();
@@ -331,6 +305,7 @@ function formatHMS(ms) {
 function startTimer() {
   if (timerRunning || quizDone) return;
   timerRunning = true;
+  quiz.classList.remove('is-paused');
   quizStartTime = Date.now() - timerMs;
   timerInterval = setInterval(() => {
     timerMs = Date.now() - quizStartTime;
@@ -342,6 +317,7 @@ function startTimer() {
 function pauseTimer() {
   if (!timerRunning) return;
   timerRunning = false;
+  quiz.classList.add('is-paused');
   clearInterval(timerInterval);
   timerInterval = null;
   document.getElementById('timerAction').textContent = 'Resume';
@@ -350,6 +326,7 @@ function pauseTimer() {
 function stopTimer() {
   pauseTimer();
   quizDone = true;
+  quiz.classList.remove('is-paused');
   document.getElementById('timerAction').textContent = 'Done';
 }
 
@@ -359,6 +336,7 @@ function resetTimer() {
   timerRunning = false;
   timerMs = 0;
   quizDone = false;
+  quiz.classList.remove('is-paused');
   document.getElementById('timerDisplay').textContent = '00:00:00';
   document.getElementById('timerAction').textContent = 'Pause';
 }
