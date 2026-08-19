@@ -1,0 +1,39 @@
+Term,Definition,Module,Slide
+DevSecOps,Integrates security practices into software delivery from planning through operations,1,6
+CIA Triad,Balances confidentiality integrity and availability in security decisions,1,10
+Shift Left Security,Moves security checks earlier in the lifecycle to reduce downstream risk and cost,1,14
+Threat Modeling,Systematically identifies attack paths trust boundaries and mitigations before implementation,1,18
+SAST,Static Application Security Testing reviews source or bytecode without executing the app,2,9
+DAST,Dynamic Application Security Testing probes a running application externally,2,12
+SCA,Software Composition Analysis identifies third-party components and known vulnerabilities,2,15
+SBOM,Software Bill of Materials inventories software components for dependency transparency,2,17
+CVE,Common Vulnerabilities and Exposures provides standardized vulnerability identifiers,2,20
+CVSS,Common Vulnerability Scoring System rates vulnerability severity consistently,2,22
+CI,Continuous Integration frequently merges changes with automated build and test checks,3,6
+CD,Continuous Delivery Deployment automates release flow after quality and security gates,3,9
+Pipeline as Code,Stores CI/CD workflow definitions in version control for repeatability and review,3,11
+IaC,Infrastructure as Code provisions environments from versioned configuration files,3,14
+Least Privilege,Grants only the minimum permissions required to complete a task,4,5
+RBAC,Role-Based Access Control assigns permissions to roles then users inherit role permissions,4,8
+ABAC,Attribute-Based Access Control evaluates user resource and context attributes for authorization,4,10
+MFA,Multi-Factor Authentication requires two or more factor categories for login,4,12
+PAM,Privileged Access Management controls audits and limits elevated account usage,4,15
+AAA,Authentication Authorization and Accounting verify identity permit actions and record activity,4,17
+TLS,Transport Layer Security encrypts data in transit and protects integrity,5,7
+HTTPS,HTTP over TLS secures browser-server communication against interception and tampering,5,9
+PKI,Public Key Infrastructure manages certificates trust chains and key validation,5,12
+HMAC,Hash-based Message Authentication Code combines a shared secret and hash function for integrity authenticity checks,5,15
+Hashing,Transforms input data into a fixed-length digest for integrity-oriented use cases,5,17
+Salting,Adds unique random data before password hashing to resist precomputed attacks,5,19
+Input Validation,Rejects malformed or unsafe input by enforcing expected type format and range,6,6
+Output Encoding,Encodes untrusted data for its output context so browsers treat it as data not code,6,9
+SQL Injection,Occurs when untrusted input changes intended SQL query structure,6,12
+XSS,Cross-Site Scripting executes attacker-controlled script in a user browser context,6,14
+CSRF,Cross-Site Request Forgery tricks a logged-in browser into sending unintended state-changing requests,6,16
+CSP,Content Security Policy restricts allowed content sources to reduce script injection impact,6,18
+SIEM,Security Information and Event Management centralizes and correlates logs for detection and response,3,20
+IDS,Intrusion Detection System monitors traffic events to detect suspicious behavior,3,22
+JWT,JSON Web Token is a compact claims token that must be validated carefully,4,20
+OAuth 2.0,Delegated authorization framework that grants scoped access without sharing user passwords,4,22
+Secrets Management,Stores and rotates credentials through controlled vaulting instead of hardcoding,3,24
+Zero Trust,Assumes no implicit trust and continuously verifies identity device and context,1,22

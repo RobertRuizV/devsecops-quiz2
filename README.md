@@ -1,18 +1,19 @@
 # DevSecOps Quiz 2
 
-An interactive, browser-based quiz covering core DevSecOps and cybersecurity concepts — including access control, secure coding, hashing, and input validation.
+An interactive, browser-based quiz covering core DevSecOps and cybersecurity concepts across Modules 1–6.
 
 ## About
 
-The quiz contains **150 questions** drawn from 25 key acronyms (e.g. CIA, RBAC, MFA, TLS, XSS, JWT). Each acronym is tested across six question types:
+The quiz contains **100 questions** using course-slide concepts and glossary terms.
+
+Question formats:
 
 - Multiple Choice
 - True / False
-- Fill in the Blank
 - Multi-select
 - Matching
 
-Answer choices shuffle every time the quiz is reset, so you can retake it repeatedly for study practice. Instant feedback is shown after each answer, along with a beginner-friendly definition of the term.
+Question order and answer choices shuffle every reset. Immediate feedback is shown after each response, with course citations in the format `(Module #, Slide #)`.
 
 ## Live Quiz
 
@@ -21,9 +22,11 @@ Answer choices shuffle every time the quiz is reset, so you can retake it repeat
 ## Repository Structure
 
 ```
-index.html      # Redirect page — forwards browsers to the quiz automatically
+index.html                  # Redirect page — forwards browsers to /docs/
 docs/
-  index.html    # The full quiz application (self-contained, no build step needed)
+  index.html                # Full quiz application (plain HTML/CSS/JS)
+data/
+  6002 terms(Sheet1).csv    # Course glossary source file
 ```
 
 ## Running Locally
