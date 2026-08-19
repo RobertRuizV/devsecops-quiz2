@@ -4,7 +4,7 @@ An interactive, browser-based quiz covering core DevSecOps and cybersecurity con
 
 ## About
 
-The quiz contains **80 questions** using course-slide concepts and glossary terms.
+The quiz contains **64 questions** using course-slide concepts and glossary terms, with question wording tuned to better reflect the language and examples from the slide decks.
 
 Question formats:
 
