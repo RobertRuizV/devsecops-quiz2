@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DevSecOps and Cybersecurity Quiz</title>
   <style id="milestone-toast-style">
-    #milestoneToast{position:fixed;top:1.2rem;left:50%;transform:translateX(-50%) translateY(-120%);z-index:300;background:var(--dark);color:#fff;font-weight:bold;font-size:1.1rem;padding:.7rem 1.6rem;border-radius:999px;box-shadow:0 4px 18px rgba(154,52,18,.35);transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .35s ease;opacity:0;pointer-events:none}
+    #milestoneToast{position:fixed;top:1.2rem;left:50%;transform:translateX(-50%) translateY(-120%);z-index:300;background:var(--dark);color:#fff;font-weight:bold;font-size:1.1rem;padding:.7rem 1.6rem;border-radius:8px;opacity:0;transition:transform .3s ease,opacity .3s ease}
     #milestoneToast.show{transform:translateX(-50%) translateY(0);opacity:1}
   </style>
   <style>
@@ -17,11 +17,11 @@
     header p{max-width:860px;margin:.75rem auto 0}
     .progress-shell{position:sticky;top:0;z-index:10;padding:.7rem 1rem;background:#fffaf5ee;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
     .track{max-width:1000px;height:18px;margin:auto;overflow:hidden;border:1px solid var(--dark);border-radius:999px;background:#fed7aa}
-    .fill{width:0;height:100%;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ea580c 0 12px,#fb923c 12px 24px);background-size:34px 34px;transition:width .4s ease;animation:roll 1s linear infinite}
+    .fill{width:0;height:100%;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ea580c 0 12px,#fb923c 12px 24px);background-size:34px 34px;transition:width .4s ease;animation:roll .8s linear infinite}
     @keyframes roll{to{background-position:34px 0}}
     #progressText{text-align:center;margin:.4rem 0 0;color:var(--dark);font-weight:bold}
     .container{width:min(100% - 2rem,1000px);margin:1.5rem auto 3rem}
-    .status{position:sticky;top:82px;z-index:9;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem;margin-bottom:1rem;border:1px solid var(--blue-border);border-radius:12px;background:var(--blue-bg);box-shadow:0 3px 12px #9a34121a}
+    .status{position:sticky;top:82px;z-index:9;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem;margin-bottom:1rem;border:1px solid var(--blue-border);border-radius:8px;background:var(--blue-bg);box-shadow:0 2px 8px rgba(0,0,0,.08)}
     .button{border:0;border-radius:8px;padding:.7rem 1rem;color:#fff;background:var(--orange);font-weight:bold;cursor:pointer}
     .button:hover{background:var(--dark)}
     .card{padding:1.2rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 3px 12px #9a341212}
@@ -43,7 +43,7 @@
     #finalScore{padding:1.2rem;border:2px solid var(--orange);border-radius:12px;background:#ffedd5;color:var(--dark);text-align:center;font-size:1.15rem;font-weight:bold}
 
     /* Floating timer button */
-    #timerBtn{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:.25rem;background:#fff;border:2px solid var(--orange);border-radius:14px;padding:.792rem .924rem;cursor:pointer;box-shadow:0 4px 16px rgba(154,52,18,.18);transition:transform .2s ease,box-shadow .2s ease,opacity .2s ease;font-family:inherit;color:var(--dark)}
+    #timerBtn{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:.25rem;background:#fff;border:2px solid var(--orange);border-radius:12px;padding:.75rem .85rem;cursor:pointer;font-weight:bold;color:var(--dark);transition:transform .2s ease,box-shadow .2s ease}
     #timerBtn:hover,#timerBtn:focus-visible{transform:translateY(-50%) scale(1.15);box-shadow:0 8px 24px rgba(154,52,18,.28);outline:2px solid var(--orange);outline-offset:2px}
     #timerBtn.is-paused{opacity:.1}
     #timerBtn .clock-icon{font-size:2.112rem;line-height:1}
@@ -131,51 +131,52 @@
 <script>
 'use strict';
 
-/* ── Glossary ─────────────────────────────────────────────────────────────── */
+/* ── Glossary ──────────────────────────────────────────────────────────────── */
 const glossary = [
   { term: 'DevSecOps', definition: 'integrates security practices into every phase of the software delivery pipeline, from planning through operations.', citation: '(Module 1, Slide 6)' },
-  { term: 'CIA Triad', definition: 'balances confidentiality (preventing unauthorized disclosure), integrity (preventing unauthorized modification), and availability (ensuring reliable access) in security decisions.', citation: '(Module 1, Slide 10)' },
-  { term: 'Shift Left Security', definition: 'moves security activities earlier in the SDLC to detect and fix vulnerabilities when they are least expensive to address.', citation: '(Module 1, Slide 14)' },
-  { term: 'Threat Modeling', definition: 'systematically identifies attack paths, trust boundaries, and mitigations before implementation to reduce design-level risk.', citation: '(Module 1, Slide 18)' },
+  { term: 'CIA Triad', definition: 'balances confidentiality (preventing unauthorized disclosure), integrity (preventing unauthorized modification), and availability (ensuring reliable access) in security operations.', citation: '(Module 1, Slide 8)' },
+  { term: 'Shift Left Security', definition: 'moves security activities earlier in the SDLC to detect and fix vulnerabilities when they are least expensive to address.', citation: '(Module 1, Slide 12)' },
+  { term: 'Threat Modeling', definition: 'systematically identifies attack paths, trust boundaries, and mitigations before implementation to reduce design-level risk.', citation: '(Module 1, Slide 15)' },
   { term: 'SAST', definition: 'Static Application Security Testing — reviews source code or bytecode for vulnerabilities without executing the application.', citation: '(Module 2, Slide 9)' },
   { term: 'DAST', definition: 'Dynamic Application Security Testing — probes a live, running application from the outside to discover runtime vulnerabilities.', citation: '(Module 2, Slide 12)' },
   { term: 'SCA', definition: 'Software Composition Analysis — identifies and inventories third-party and open-source components, flagging known CVEs.', citation: '(Module 2, Slide 15)' },
-  { term: 'SBOM', definition: 'Software Bill of Materials — a formal machine-readable inventory of software components and their dependencies that supports supply-chain transparency.', citation: '(Module 2, Slide 17)' },
+  { term: 'SBOM', definition: 'Software Bill of Materials — a formal machine-readable inventory of software components and their dependencies that supports supply-chain transparency.', citation: '(Module 2, Slide 18)' },
   { term: 'CVE', definition: 'Common Vulnerabilities and Exposures — a publicly maintained dictionary that assigns standardized identifiers to disclosed security vulnerabilities.', citation: '(Module 2, Slide 20)' },
   { term: 'CVSS', definition: 'Common Vulnerability Scoring System — provides a standardized numerical rating (0–10) for vulnerability severity based on exploitability and impact metrics.', citation: '(Module 2, Slide 22)' },
-  { term: 'CI', definition: 'Continuous Integration — a practice where developers frequently merge code changes into a shared branch, triggering automated build and test pipelines to detect integration problems early.', citation: '(Module 3, Slide 6)' },
+  { term: 'CI', definition: 'Continuous Integration — a practice where developers frequently merge code changes into a shared branch, triggering automated build and test pipelines to detect integration issues early.', citation: '(Module 3, Slide 6)' },
   { term: 'CD', definition: 'Continuous Delivery/Deployment — automates the release pipeline so code that passes quality and security gates can be delivered to production reliably and on demand.', citation: '(Module 3, Slide 9)' },
   { term: 'Pipeline as Code', definition: 'stores CI/CD workflow definitions in version control, enabling peer review, auditability, and repeatable execution.', citation: '(Module 3, Slide 11)' },
   { term: 'IaC', definition: 'Infrastructure as Code — provisions and manages computing environments from versioned, declarative configuration files rather than manual administration.', citation: '(Module 3, Slide 14)' },
   { term: 'Least Privilege', definition: 'grants each user, process, or system component only the minimum permissions needed to perform its defined function.', citation: '(Module 4, Slide 5)' },
   { term: 'RBAC', definition: 'Role-Based Access Control — assigns permissions to predefined roles and then associates users with those roles, simplifying permission management at scale.', citation: '(Module 4, Slide 8)' },
-  { term: 'ABAC', definition: 'Attribute-Based Access Control — makes authorization decisions by evaluating user attributes, resource attributes, and environmental context against policy rules.', citation: '(Module 4, Slide 10)' },
-  { term: 'MFA', definition: 'Multi-Factor Authentication — requires a user to provide credentials from two or more distinct factor categories (knowledge, possession, inherence) before granting access.', citation: '(Module 4, Slide 12)' },
-  { term: 'PAM', definition: 'Privileged Access Management — enforces strict controls over elevated accounts, including just-in-time provisioning, session recording, and credential vaulting.', citation: '(Module 4, Slide 15)' },
-  { term: 'AAA', definition: 'Authentication, Authorization, and Accounting — verifies identity, determines permitted actions, and logs activity for auditability.', citation: '(Module 4, Slide 17)' },
-  { term: 'TLS', definition: 'Transport Layer Security — a cryptographic protocol that provides confidentiality, integrity, and server authentication for data transmitted over a network.', citation: '(Module 5, Slide 7)' },
+  { term: 'ABAC', definition: 'Attribute-Based Access Control — makes authorization decisions by evaluating user attributes, resource attributes, and environmental context against policy rules.', citation: '(Module 4, Slide 11)' },
+  { term: 'MFA', definition: 'Multi-Factor Authentication — requires a user to provide credentials from two or more distinct factor categories (knowledge, possession, inherence) before granting access.', citation: '(Module 4, Slide 14)' },
+  { term: 'PAM', definition: 'Privileged Access Management — enforces strict controls over elevated accounts, including just-in-time provisioning, session recording, and credential vaulting.', citation: '(Module 4, Slide 17)' },
+  { term: 'AAA', definition: 'Authentication, Authorization, and Accounting — verifies identity, determines permitted actions, and logs activity for auditability.', citation: '(Module 4, Slide 20)' },
+  { term: 'TLS', definition: 'Transport Layer Security — a cryptographic protocol that provides confidentiality, integrity, and server authentication for data transmitted over a network.', citation: '(Module 5, Slide 6)' },
   { term: 'HTTPS', definition: 'HTTP over TLS — secures browser-to-server communication by layering the HTTP application protocol over a TLS session.', citation: '(Module 5, Slide 9)' },
   { term: 'PKI', definition: 'Public Key Infrastructure — the set of policies, roles, hardware, software, and procedures needed to issue, manage, distribute, and revoke digital certificates.', citation: '(Module 5, Slide 12)' },
   { term: 'HMAC', definition: 'Hash-based Message Authentication Code — combines a shared secret key with a cryptographic hash function to produce a tag that verifies both message integrity and authenticity.', citation: '(Module 5, Slide 15)' },
-  { term: 'Hashing', definition: 'transforms arbitrary-length input data into a fixed-length digest; a one-way operation widely used for integrity verification and password storage.', citation: '(Module 5, Slide 17)' },
-  { term: 'Salting', definition: 'prepends or appends unique random data to each password before hashing, preventing precomputed rainbow-table attacks and ensuring identical passwords produce different digests.', citation: '(Module 5, Slide 19)' },
+  { term: 'Hashing', definition: 'transforms arbitrary-length input data into a fixed-length digest; a one-way operation widely used for integrity verification and password storage.', citation: '(Module 5, Slide 18)' },
+  { term: 'Salting', definition: 'prepends or appends unique random data to each password before hashing, preventing precomputed rainbow-table attacks and ensuring identical passwords produce different hashes.', citation: '(Module 5, Slide 21)' },
   { term: 'Input Validation', definition: 'rejects or sanitizes data that does not conform to expected type, format, length, and range constraints before it is processed.', citation: '(Module 6, Slide 6)' },
   { term: 'Output Encoding', definition: 'transforms untrusted data into a safe representation appropriate for its output context so that browsers interpret it as data rather than executable code.', citation: '(Module 6, Slide 9)' },
   { term: 'SQL Injection', definition: 'occurs when an attacker embeds malicious SQL fragments into a query, altering the intended query structure and potentially accessing or modifying unauthorized data.', citation: '(Module 6, Slide 12)' },
-  { term: 'XSS', definition: 'Cross-Site Scripting — injects attacker-controlled script into a trusted web page that executes in other users\' browsers, potentially stealing session tokens or performing actions on their behalf.', citation: '(Module 6, Slide 14)' },
-  { term: 'CSRF', definition: 'Cross-Site Request Forgery — tricks an authenticated browser into submitting a forged state-changing request to a trusted server without the user\'s knowledge.', citation: '(Module 6, Slide 16)' },
-  { term: 'CSP', definition: 'Content Security Policy — an HTTP response header that restricts which content sources browsers may load, reducing the blast radius of script injection attacks.', citation: '(Module 6, Slide 18)' },
-  { term: 'SIEM', definition: 'Security Information and Event Management — aggregates and correlates log data from across an environment to detect threats and support incident response.', citation: '(Module 3, Slide 20)' },
-  { term: 'IDS', definition: 'Intrusion Detection System — monitors network traffic and host events, generating alerts when patterns match known attack signatures or anomaly baselines.', citation: '(Module 3, Slide 22)' },
-  { term: 'JWT', definition: 'JSON Web Token — a compact, URL-safe claims token that must be cryptographically validated on every use; compromise of the signing key allows forgery.', citation: '(Module 4, Slide 20)' },
-  { term: 'OAuth 2.0', definition: 'a delegated authorization framework that lets a resource owner grant a third-party application scoped access to resources without sharing credentials.', citation: '(Module 4, Slide 22)' },
-  { term: 'Secrets Management', definition: 'stores, rotates, and audits credentials through a controlled vault rather than embedding them in source code or configuration files.', citation: '(Module 3, Slide 24)' },
-  { term: 'Zero Trust', definition: 'an architecture that removes implicit network-perimeter trust and instead continuously verifies identity, device health, and context for every access request.', citation: '(Module 1, Slide 22)' }
+  { term: 'XSS', definition: 'Cross-Site Scripting — injects attacker-controlled script into a trusted web page that executes in other users\' browsers, potentially stealing session tokens or credentials.', citation: '(Module 6, Slide 15)' },
+  { term: 'CSRF', definition: 'Cross-Site Request Forgery — tricks an authenticated browser into submitting a forged state-changing request to a trusted server without the user\'s knowledge.', citation: '(Module 6, Slide 18)' },
+  { term: 'CSP', definition: 'Content Security Policy — an HTTP response header that restricts which content sources browsers may load, reducing the blast radius of script injection attacks.', citation: '(Module 6, Slide 21)' },
+  { term: 'SIEM', definition: 'Security Information and Event Management — aggregates and correlates log data from across an environment to detect threats and support incident response.', citation: '(Module 5, Slide 24)' },
+  { term: 'IDS', definition: 'Intrusion Detection System — monitors network traffic and host events, generating alerts when patterns match known attack signatures or anomaly baselines.', citation: '(Module 5, Slide 27)' },
+  { term: 'JWT', definition: 'JSON Web Token — a compact, URL-safe claims token that must be cryptographically validated on every use; compromise of the signing key allows forgery.', citation: '(Module 4, Slide 23)' },
+  { term: 'OAuth 2.0', definition: 'a delegated authorization framework that lets a resource owner grant a third-party application scoped access to resources without sharing credentials.', citation: '(Module 4, Slide 26)' },
+  { term: 'Secrets Management', definition: 'stores, rotates, and audits credentials through a controlled vault rather than embedding them in source code or configuration files.', citation: '(Module 3, Slide 17)' },
+  { term: 'Zero Trust', definition: 'an architecture that removes implicit network-perimeter trust and instead continuously verifies identity, device health, and context for every access request.', citation: '(Module 4, Slide 29)' },
+  { term: 'SSO', definition: 'Single Sign-On — allows a user to authenticate once and access multiple connected services without needing to log in to each service separately.', citation: '(Module 4, Slide 32)' }
 ];
 
 const MAX_QUESTIONS = 72;
 
-/* ── Helpers ──────────────────────────────────────────────────────────────── */
+/* ── Helpers ─────────────────────────────────────────────────────────────── */
 function shuffle(arr) {
   const out = [...arr];
   for (let i = out.length - 1; i > 0; i -= 1) {
@@ -270,7 +271,7 @@ function makeMatchingQuestion(item, index) {
   };
 }
 
-/* ── Build pool ───────────────────────────────────────────────────────────── */
+/* ── Build pool ──────────────────────────────────────────────────────────── */
 function buildQuestionPool() {
   const pool = [];
   const maxPer = 3;
@@ -292,7 +293,7 @@ let shownDefinitions = new Set();
 let answered = 0;
 let correctCount = 0;
 
-/* ── DOM refs ─────────────────────────────────────────────────────────────── */
+/* ── DOM refs ───────────────────────────────────────────────────────────── */
 const quiz = document.getElementById('quiz');
 const score = document.getElementById('score');
 const fill = document.getElementById('fill');
@@ -301,7 +302,7 @@ const progressText = document.getElementById('progressText');
 const finalScore = document.getElementById('finalScore');
 const completionView = document.getElementById('completionView');
 
-/* ── Timer ────────────────────────────────────────────────────────────────── */
+/* ── Timer ──────────────────────────────────────────────────────────────── */
 let timerMs = 0;
 let timerRunning = false;
 let timerInterval = null;
@@ -367,7 +368,7 @@ document.getElementById('timerBtn').addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('timerBtn').click(); }
 });
 
-/* ── Confetti ─────────────────────────────────────────────────────────────── */
+/* ── Confetti ───────────────────────────────────────────────────────────── */
 const confettiCanvas = document.getElementById('confettiCanvas');
 const confettiCtx = confettiCanvas.getContext('2d');
 let confettiParticles = [];
@@ -458,7 +459,7 @@ function spawnCompletionConfetti() {
   setTimeout(() => spawnConfetti(160), 1600);
 }
 
-/* ── Score / progress update ─────────────────────────────────────────────── */
+/* ── Score / progress update ────────────────────────────────────────────── */
 function update() {
   const total = MAX_QUESTIONS;
   const done = (answered / total) * 100;
@@ -471,7 +472,7 @@ function update() {
   progressText.textContent = `Progress: ${answered} of ${total} questions completed (${done.toFixed(0)}%)`;
 }
 
-/* ── Completion view ─────────────────────────────────────────────────────── */
+/* ── Completion view ────────────────────────────────────────────────────── */
 function showCompletion() {
   stopTimer();
   const avg = MAX_QUESTIONS > 0 ? timerMs / MAX_QUESTIONS : 0;
@@ -490,7 +491,7 @@ document.getElementById('retryBtn').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-/* ── Feedback helpers ─────────────────────────────────────────────────────── */
+/* ── Feedback helpers ───────────────────────────────────────────────────── */
 function formatCorrectAnswer(question) {
   if (Array.isArray(question.correct)) return question.correct.join(' | ');
   if (question.pairs) return question.pairs.map(pair => pair.join(' → ')).join('; ');
@@ -531,7 +532,7 @@ function addButton(card, onClick) {
   card.appendChild(button);
 }
 
-/* ── Card renderer ────────────────────────────────────────────────────────── */
+/* ── Card renderer ──────────────────────────────────────────────────────── */
 function createCard(question, index) {
   const card = document.createElement('div');
   card.className = 'card';
@@ -542,7 +543,7 @@ function createCard(question, index) {
   const definitionFirstSeen = !shownDefinitions.has(question.term);
   if (definitionFirstSeen) shownDefinitions.add(question.term);
 
-  card.innerHTML = `<span class="badge">${question.type}</span><h2>${index + 1}. ${question.q}</h2>${definitionFirstSeen ? `<div class="definition"><strong>${termMeta(question.term)}:</strong><button type="button" class="hint-btn" aria-expanded="false" aria-controls="hint-${index}">Hint!</button><span class="hint-content" id="hint-${index}"> ${question.term} — ${question.definition} ${question.citation}</span></div>` : ''}`;
+  card.innerHTML = `<span class="badge">${question.type}</span><h2>${index + 1}. ${question.q}</h2>${definitionFirstSeen ? `<div class="definition"><strong>${termMeta(question.term)}:</strong><button type="button" class="hint-btn" aria-expanded="false" aria-controls="hint-${index}">Hint!</button><br><span id="hint-${index}" class="hint-content">${question.definition}</span></div>` : ''}`;
 
   if (definitionFirstSeen) {
     const hintBtn = card.querySelector('.hint-btn');
@@ -633,7 +634,7 @@ function createCard(question, index) {
   return card;
 }
 
-/* ── Init / reset ─────────────────────────────────────────────────────────── */
+/* ── Init / reset ───────────────────────────────────────────────────────── */
 function startNewAttempt() {
   attemptQuestions = shuffle(baseQuestionPool).slice(0, MAX_QUESTIONS);
   shownDefinitions = new Set();
