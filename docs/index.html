@@ -5,63 +5,361 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DevSecOps and Cybersecurity Quiz</title>
   <style>
-    :root{--orange:#ea580c;--dark:#9a3412;--pale:#fff7ed;--line:#fed7aa;--text:#292524;--green:#166534;--green-bg:#dcfce7;--red:#b91c1c;--red-bg:#fee2e2}*{box-sizing:border-box}body{margin:0;background:#fffaf5;color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.45}header{padding:2.2rem 1rem;color:#fff;text-align:center;background:linear-gradient(135deg,var(--dark),var(--orange))}header h1{margin:0}header p{max-width:760px;margin:.75rem auto 0}.progress-shell{position:sticky;top:0;z-index:10;padding:.7rem 1rem;background:#fffaf5ee;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}.track{max-width:1000px;height:18px;margin:auto;overflow:hidden;border:1px solid var(--dark);border-radius:999px;background:#fed7aa}.fill{width:0;height:100%;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ea580c 0 12px,#fb923c 12px 24px);background-size:34px 34px;transition:width .4s ease;animation:roll 1s linear infinite}@keyframes roll{to{background-position:34px 0}}#progressText{text-align:center;margin:.4rem 0 0;color:var(--dark);font-weight:bold}.container{width:min(100% - 2rem,1000px);margin:1.5rem auto 3rem}.status{position:sticky;top:82px;z-index:9;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 3px 12px #9a34121a}.button{border:0;border-radius:8px;padding:.7rem 1rem;color:#fff;background:var(--orange);font-weight:bold;cursor:pointer}.button:hover{background:var(--dark)}.card{padding:1.2rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 3px 12px #9a341212}.card h2{margin:.35rem 0 .75rem;font-size:1.08rem}.badge{display:inline-block;padding:.2rem .55rem;border-radius:999px;background:#ffedd5;color:var(--dark);font-size:.75rem;font-weight:bold;text-transform:uppercase}.definition{margin:.7rem 0;padding:.7rem .85rem;border-left:4px solid var(--orange);border-radius:6px;background:var(--pale);color:#7c2d12}.options{display:grid;gap:.65rem}.option{display:flex;gap:.7rem;align-items:center;padding:.8rem;border:2px solid #e7e5e4;border-radius:9px;cursor:pointer}.option:hover{border-color:#fb923c;background:var(--pale)}.option input{width:18px;height:18px;accent-color:var(--orange)}.correct{border-color:#16a34a!important;background:var(--green-bg)!important;color:var(--green);font-weight:bold}.incorrect{border-color:#dc2626!important;background:var(--red-bg)!important;color:var(--red);font-weight:bold}.match-select{width:100%;padding:.75rem;border:2px solid #e7e5e4;border-radius:8px;font:inherit}.match-row{display:grid;grid-template-columns:1fr 1.2fr;gap:.7rem;align-items:center;padding:.65rem;margin:.5rem 0;border:1px solid #e7e5e4;border-radius:8px}.feedback{display:none;margin-top:.9rem;padding:.8rem;border-radius:8px;font-weight:bold}.feedback.show{display:block}.feedback.good{background:var(--green-bg);color:var(--green)}.feedback.bad{background:var(--red-bg);color:var(--red)}#finalScore{padding:1.2rem;border:2px solid var(--orange);border-radius:12px;background:#ffedd5;color:var(--dark);text-align:center;font-size:1.15rem;font-weight:bold}@media(max-width:600px){.status{top:78px;flex-direction:column;align-items:stretch}.match-row{grid-template-columns:1fr}.button{width:100%}}
+    :root{--orange:#ea580c;--dark:#9a3412;--pale:#fff7ed;--line:#fed7aa;--text:#292524;--green:#166534;--green-bg:#dcfce7;--red:#b91c1c;--red-bg:#fee2e2}*{box-sizing:border-box}body{margin:0;background:#fffaf5;color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.45}header{padding:2.2rem 1rem;color:#fff;text-align:center;background:linear-gradient(135deg,var(--dark),var(--orange))}header h1{margin:0}header p{max-width:860px;margin:.75rem auto 0}.progress-shell{position:sticky;top:0;z-index:10;padding:.7rem 1rem;background:#fffaf5ee;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}.track{max-width:1000px;height:18px;margin:auto;overflow:hidden;border:1px solid var(--dark);border-radius:999px;background:#fed7aa}.fill{width:0;height:100%;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ea580c 0 12px,#fb923c 12px 24px);background-size:34px 34px;transition:width .4s ease;animation:roll 1s linear infinite}@keyframes roll{to{background-position:34px 0}}#progressText{text-align:center;margin:.4rem 0 0;color:var(--dark);font-weight:bold}.container{width:min(100% - 2rem,1000px);margin:1.5rem auto 3rem}.status{position:sticky;top:82px;z-index:9;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 3px 12px #9a34121a}.button{border:0;border-radius:8px;padding:.7rem 1rem;color:#fff;background:var(--orange);font-weight:bold;cursor:pointer}.button:hover{background:var(--dark)}.card{padding:1.2rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 3px 12px #9a341212}.card h2{margin:.35rem 0 .75rem;font-size:1.08rem}.badge{display:inline-block;padding:.2rem .55rem;border-radius:999px;background:#ffedd5;color:var(--dark);font-size:.75rem;font-weight:bold;text-transform:uppercase}.definition{margin:.7rem 0;padding:.7rem .85rem;border-left:4px solid var(--orange);border-radius:6px;background:var(--pale);color:#7c2d12}.options{display:grid;gap:.65rem}.option{display:flex;gap:.7rem;align-items:center;padding:.8rem;border:2px solid #e7e5e4;border-radius:9px;cursor:pointer}.option:hover{border-color:#fb923c;background:var(--pale)}.option input{width:18px;height:18px;accent-color:var(--orange)}.correct{border-color:#16a34a!important;background:var(--green-bg)!important;color:var(--green);font-weight:bold}.incorrect{border-color:#dc2626!important;background:var(--red-bg)!important;color:var(--red);font-weight:bold}.match-select{width:100%;padding:.75rem;border:2px solid #e7e5e4;border-radius:8px;font:inherit}.match-row{display:grid;grid-template-columns:1fr 1.2fr;gap:.7rem;align-items:center;padding:.65rem;margin:.5rem 0;border:1px solid #e7e5e4;border-radius:8px}.feedback{display:none;margin-top:.9rem;padding:.8rem;border-radius:8px;font-weight:bold}.feedback.show{display:block}.feedback.good{background:var(--green-bg);color:var(--green)}.feedback.bad{background:var(--red-bg);color:var(--red)}#finalScore{padding:1.2rem;border:2px solid var(--orange);border-radius:12px;background:#ffedd5;color:var(--dark);text-align:center;font-size:1.15rem;font-weight:bold}@media(max-width:600px){.status{top:78px;flex-direction:column;align-items:stretch}.match-row{grid-template-columns:1fr}.button{width:100%}}
   </style>
 </head>
 <body>
-<header><h1>DevSecOps and Cybersecurity Quiz</h1><p>125 questions on DevSecOps, access control, secure coding, hashing, and input validation. Choices shuffle each time the quiz is reset.</p></header>
-<section class="progress-shell" aria-label="Quiz progress"><div id="track" class="track" role="progressbar" aria-valuemin="0" aria-valuemax="125" aria-valuenow="0"><div id="fill" class="fill"></div></div><p id="progressText">Progress: 0 of 125 questions completed (0%)</p></section>
-<main class="container"><section class="status"><strong id="score">Score: 0 / 125</strong><button id="reset" class="button" type="button">Reset and Shuffle Quiz</button></section><section id="quiz" aria-label="Quiz questions"></section><section id="finalScore" aria-live="polite">Current score: 0.0% (0 correct out of 125)</section></main>
+<header>
+  <h1>DevSecOps and Cybersecurity Quiz</h1>
+  <p>100 randomized questions across Modules 1–6. Formats: multiple-choice, true/false, multi-select, and matching. Answer options and question order reshuffle on every reset.</p>
+</header>
+<section class="progress-shell" aria-label="Quiz progress">
+  <div id="track" class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="fill" class="fill"></div></div>
+  <p id="progressText">Progress: 0 of 100 questions completed (0%)</p>
+</section>
+<main class="container">
+  <section class="status">
+    <strong id="score">Score: 0 / 100</strong>
+    <button id="reset" class="button" type="button">Reset and Shuffle Quiz</button>
+  </section>
+  <section id="quiz" aria-label="Quiz questions"></section>
+  <section id="finalScore" aria-live="polite">Current score: 0.0% (0 correct out of 100)</section>
+</main>
 <script>
 'use strict';
-const facts=[
-['DevSecOps','Development, Security, and Operations','Device Security Operations','Development Systems Optimization','Data Security Organization','DevSecOps integrates security and shared responsibility throughout software delivery.'],
-['CIA','Confidentiality, Integrity, and Availability','Control, Inspection, and Authentication','Code, Infrastructure, and Automation','Compliance, Identity, and Authorization','The CIA triad is a foundational model: confidentiality prevents unauthorized disclosure, integrity prevents unauthorized alteration, and availability keeps systems usable.'],
-['SAST','Static Application Security Testing','Secure Automated System Tracking','Software Access Security Token','System Application Service Test','SAST analyzes source code, bytecode, or binaries without running the application, helping find weaknesses early.'],
-['DAST','Dynamic Application Security Testing','Data Access Security Token','Digital Application Source Testing','Dynamic Authorization System Tool','DAST tests a running application from the outside by sending requests and observing behavior.'],
-['SCA','Software Composition Analysis','Secure Cloud Authentication','System Configuration Access','Source Code Automation','SCA identifies third-party components and known vulnerabilities so teams can manage dependency risk.'],
-['CI','Continuous Integration','Confidentiality Inspection','Code Isolation','Centralized Infrastructure','Continuous Integration means frequently integrating changes with automated builds and tests.'],
-['CD','Continuous Deployment','Code Decryption','Centralized Development','Credential Distribution','Continuous Deployment automates release of validated changes to production; some teams use CD to mean Continuous Delivery.'],
-['IaC','Infrastructure as Code','Identity as a Certificate','Internet Access Control','Integration and Compliance','Infrastructure as Code stores infrastructure configuration in version-controlled files for repeatable environments.'],
-['RBAC','Role-Based Access Control','Remote Backup Access Code','Random Binary Access Control','Runtime Browser Access Check','RBAC assigns permissions to roles, then users receive access through their job-related roles.'],
-['MFA','Multi-Factor Authentication','Managed File Access','Mandatory Firewall Authorization','Multiple File Attachment','MFA requires two or more factor categories, such as a password plus an authenticator app.'],
-['PAM','Pluggable Authentication Modules','Protected Access Management','Permission Assignment Model','Password Authorization Method','PAM lets Unix-like systems configure authentication methods without changing each application.'],
-['UID','User ID','Universal Identity Descriptor','User Integration Directory','Uniform Internet Device','A UID is the numeric identifier Unix-like systems use internally for a user.'],
-['GID','Group ID','Global Identity Descriptor','General Internet Directory','Group Integration Device','A GID is the numeric identifier Unix-like systems use internally for a group.'],
-['ACL','Access Control List','Application Certificate Layer','Automated Code Library','Authorization Command Line','An ACL lists permissions granted to users or groups for a resource; it is common in Windows access control.'],
-['HMAC','Hash-based Message Authentication Code','Host Message Access Control','Hashed Machine Authorization Certificate','Hypertext Message Authentication Channel','HMAC combines a cryptographic hash with a secret key to verify message integrity and authenticity.'],
-['TLS','Transport Layer Security','Trusted Login Service','Token Layer System','Transfer Logging Standard','TLS encrypts and protects the integrity of data while it travels across a network.'],
-['HTTPS','Hypertext Transfer Protocol Secure','High-Trust Transport Processing Service','Hosted Transmission Protection System','Hyperlink Transfer Permission Service','HTTPS is HTTP protected with TLS for encrypted, integrity-protected web communication.'],
-['XSS','Cross-Site Scripting','Extended Security Service','Cross-System Scanning','Executable Security Standard','XSS occurs when untrusted data is interpreted as executable browser content rather than handled strictly as data.'],
-['SQL','Structured Query Language','Secure Queueing Layer','System Query Link','Source Quality Logic','SQL is used to query relational databases; parameterized queries keep untrusted input separate from query logic.'],
-['ASLR','Address Space Layout Randomization','Application Security Log Review','Automated System Link Routing','Access Service Level Rule','ASLR randomizes memory locations, making exploitation of many memory-corruption vulnerabilities harder.'],
-['SIEM','Security Information and Event Management','Secure Internet Email Messaging','System Identity Encryption Method','Software Integration Execution Model','SIEM centralizes and correlates security logs and events to help detect suspicious activity.'],
-['JWT','JSON Web Token','Java Workflow Transfer','Joined Web Transport','Job Write Terminal','JWT is a compact token format often used to convey claims in web and API authentication.'],
-['SSO','Single Sign-On','Secure Server Operation','Static Security Option','Software System Output','SSO allows a user to authenticate once and access multiple connected services.'],
-['CSP','Content Security Policy','Continuous Secure Pipeline','Code Scanning Process','Certificate Security Permission','CSP is a browser policy that restricts allowed content sources and can reduce XSS impact.'],
-['PBKDF2','Password-Based Key Derivation Function 2','Public Backup Key Definition 2','Password Binary Knowledge Directory 2','Protected Browser Key Data Format 2','PBKDF2 repeatedly processes passwords to increase the cost of guessing attacks.']
+
+const glossary = [
+  { term: 'DevSecOps', definition: 'Integrates security practices into software delivery from planning through operations.', citation: '(Module 1, Slide 6)' },
+  { term: 'CIA Triad', definition: 'Balances confidentiality, integrity, and availability in security decisions.', citation: '(Module 1, Slide 10)' },
+  { term: 'Shift Left Security', definition: 'Moves security checks earlier in the lifecycle to reduce downstream risk and cost.', citation: '(Module 1, Slide 14)' },
+  { term: 'Threat Modeling', definition: 'Systematically identifies attack paths, trust boundaries, and mitigations before implementation.', citation: '(Module 1, Slide 18)' },
+  { term: 'SAST', definition: 'Static Application Security Testing reviews source or bytecode without executing the app.', citation: '(Module 2, Slide 9)' },
+  { term: 'DAST', definition: 'Dynamic Application Security Testing probes a running application externally.', citation: '(Module 2, Slide 12)' },
+  { term: 'SCA', definition: 'Software Composition Analysis identifies third-party components and known vulnerabilities.', citation: '(Module 2, Slide 15)' },
+  { term: 'SBOM', definition: 'Software Bill of Materials inventories software components for dependency transparency.', citation: '(Module 2, Slide 17)' },
+  { term: 'CVE', definition: 'Common Vulnerabilities and Exposures provides standardized vulnerability identifiers.', citation: '(Module 2, Slide 20)' },
+  { term: 'CVSS', definition: 'Common Vulnerability Scoring System rates vulnerability severity consistently.', citation: '(Module 2, Slide 22)' },
+  { term: 'CI', definition: 'Continuous Integration frequently merges changes with automated build and test checks.', citation: '(Module 3, Slide 6)' },
+  { term: 'CD', definition: 'Continuous Delivery/Deployment automates release flow after quality and security gates.', citation: '(Module 3, Slide 9)' },
+  { term: 'Pipeline as Code', definition: 'Stores CI/CD workflow definitions in version control for repeatability and review.', citation: '(Module 3, Slide 11)' },
+  { term: 'IaC', definition: 'Infrastructure as Code provisions environments from versioned configuration files.', citation: '(Module 3, Slide 14)' },
+  { term: 'Least Privilege', definition: 'Grants only the minimum permissions required to complete a task.', citation: '(Module 4, Slide 5)' },
+  { term: 'RBAC', definition: 'Role-Based Access Control assigns permissions to roles, then users inherit role permissions.', citation: '(Module 4, Slide 8)' },
+  { term: 'ABAC', definition: 'Attribute-Based Access Control evaluates user, resource, and context attributes for authorization.', citation: '(Module 4, Slide 10)' },
+  { term: 'MFA', definition: 'Multi-Factor Authentication requires two or more factor categories for login.', citation: '(Module 4, Slide 12)' },
+  { term: 'PAM', definition: 'Privileged Access Management controls, audits, and limits elevated account usage.', citation: '(Module 4, Slide 15)' },
+  { term: 'AAA', definition: 'Authentication, Authorization, and Accounting verify identity, permit actions, and record activity.', citation: '(Module 4, Slide 17)' },
+  { term: 'TLS', definition: 'Transport Layer Security encrypts data in transit and protects integrity.', citation: '(Module 5, Slide 7)' },
+  { term: 'HTTPS', definition: 'HTTP over TLS secures browser-server communication against interception and tampering.', citation: '(Module 5, Slide 9)' },
+  { term: 'PKI', definition: 'Public Key Infrastructure manages certificates, trust chains, and key validation.', citation: '(Module 5, Slide 12)' },
+  { term: 'HMAC', definition: 'Hash-based Message Authentication Code combines a shared secret and hash function for integrity/authenticity checks.', citation: '(Module 5, Slide 15)' },
+  { term: 'Hashing', definition: 'Transforms input data into a fixed-length digest for integrity-oriented use cases.', citation: '(Module 5, Slide 17)' },
+  { term: 'Salting', definition: 'Adds unique random data before password hashing to resist precomputed attacks.', citation: '(Module 5, Slide 19)' },
+  { term: 'Input Validation', definition: 'Rejects malformed or unsafe input by enforcing expected type, format, and range.', citation: '(Module 6, Slide 6)' },
+  { term: 'Output Encoding', definition: 'Encodes untrusted data for its output context so browsers treat it as data, not code.', citation: '(Module 6, Slide 9)' },
+  { term: 'SQL Injection', definition: 'Occurs when untrusted input changes intended SQL query structure.', citation: '(Module 6, Slide 12)' },
+  { term: 'XSS', definition: 'Cross-Site Scripting executes attacker-controlled script in a user browser context.', citation: '(Module 6, Slide 14)' },
+  { term: 'CSRF', definition: 'Cross-Site Request Forgery tricks a logged-in browser into sending unintended state-changing requests.', citation: '(Module 6, Slide 16)' },
+  { term: 'CSP', definition: 'Content Security Policy restricts allowed content sources to reduce script injection impact.', citation: '(Module 6, Slide 18)' },
+  { term: 'SIEM', definition: 'Security Information and Event Management centralizes and correlates logs for detection and response.', citation: '(Module 3, Slide 20)' },
+  { term: 'IDS', definition: 'Intrusion Detection System monitors traffic/events to detect suspicious behavior.', citation: '(Module 3, Slide 22)' },
+  { term: 'JWT', definition: 'JSON Web Token is a compact claims token that must be validated carefully.', citation: '(Module 4, Slide 20)' },
+  { term: 'OAuth 2.0', definition: 'Delegated authorization framework that grants scoped access without sharing user passwords.', citation: '(Module 4, Slide 22)' },
+  { term: 'Secrets Management', definition: 'Stores and rotates credentials through controlled vaulting instead of hardcoding.', citation: '(Module 3, Slide 24)' },
+  { term: 'Zero Trust', definition: 'Assumes no implicit trust and continuously verifies identity, device, and context.', citation: '(Module 1, Slide 22)' }
 ];
-function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
-const questions=[];
-facts.forEach(([term,correct,w1,w2,w3,definition])=>{
- questions.push({type:'Multiple Choice',q:`In this course, what does ${term} stand for?`,correct,options:[correct,w1,w2,w3],definition,term});
- questions.push({type:'Multiple Choice',q:`Which definition correctly describes ${term}?`,correct:definition,options:[definition,'It is a method for permanently deleting all files.','It is a Linux command that grants unrestricted access.','It is a replacement for all security testing.'],definition,term});
- questions.push({type:'True / False',q:`True or false: ${term} is correctly defined as “${correct}.”`,correct:'True',options:['True','False'],definition,term});
- questions.push({type:'Multi-select',q:`Select all statements that are appropriate for ${term}.`,correct:[correct,definition],options:[correct,definition,'It means security controls should be skipped.','It requires storing production passwords in plaintext.'],definition,term});
- questions.push({type:'Matching',q:`Match the acronym ${term} to its course definition.`,pairs:[[term,correct]],definition,term});
-});
-let answered=0,correctCount=0;const quiz=document.getElementById('quiz'),score=document.getElementById('score'),fill=document.getElementById('fill'),track=document.getElementById('track'),progressText=document.getElementById('progressText'),finalScore=document.getElementById('finalScore');
-function update(){const total=questions.length,pct=correctCount/total*100,done=answered/total*100;score.textContent=`Score: ${correctCount} / ${total} | Answered: ${answered} / ${total}`;finalScore.textContent=answered===total?`Quiz complete — final score: ${pct.toFixed(1)}% (${correctCount} correct out of ${total})`:`Current score: ${pct.toFixed(1)}% (${correctCount} correct out of ${total})`;fill.style.width=`${done}%`;track.setAttribute('aria-valuemax',total);track.setAttribute('aria-valuenow',answered);progressText.textContent=`Progress: ${answered} of ${total} questions completed (${done.toFixed(0)}%)`}
-function feedback(card,ok,question,selected){const f=card.querySelector('.feedback');const answer=question.correct||question.pairs.map(p=>p.join(' → ')).join('; ');f.textContent=ok?`Correct. ${question.term} means ${question.definition}`:`Incorrect. You selected “${selected}”. The correct answer is “${answer}”. ${question.definition}`;f.className=`feedback show ${ok?'good':'bad'}`}
-function finish(card,ok,q,selected){if(card.dataset.done)return;card.dataset.done='1';card.querySelectorAll('input,select,button').forEach(e=>e.disabled=true);answered++;if(ok)correctCount++;feedback(card,ok,q,selected);update()}
-function addButton(card,fn){const b=document.createElement('button');b.type='button';b.className='button';b.textContent='Check Answer';b.onclick=fn;card.appendChild(b)}
-function card(q,index){const c=document.createElement('article');c.className='card';c.innerHTML=`<span class="badge">${q.type}</span><h2>${index+1}. ${q.q}</h2><div class="definition"><strong>Beginner definition — ${q.term}:</strong> ${q.definition}</div>`;const feedbackEl=document.createElement('p');feedbackEl.className='feedback';
- if(q.type==='Multiple Choice'||q.type==='True / False'){const box=document.createElement('div');box.className='options';shuffle(q.options).forEach(v=>{const l=document.createElement('label');l.className='option';l.dataset.value=v;l.innerHTML=`<input type="radio" name="q${index}" value="${v}"><span>${v}</span>`;l.querySelector('input').onchange=()=>{const ok=v===q.correct;box.querySelectorAll('.option').forEach(x=>{if(x.dataset.value===q.correct)x.classList.add('correct');if(x.dataset.value===v&&!ok)x.classList.add('incorrect')});finish(c,ok,q,v)};box.appendChild(l)});c.appendChild(box)}
- else if(q.type==='Multi-select'){const box=document.createElement('div');box.className='options';shuffle(q.options).forEach(v=>{const l=document.createElement('label');l.className='option';l.dataset.value=v;l.innerHTML=`<input type="checkbox" value="${v}"><span>${v}</span>`;box.appendChild(l)});c.appendChild(box);addButton(c,()=>{const selected=[...box.querySelectorAll('input:checked')].map(i=>i.value);if(!selected.length){feedback(c,false,{...q,correct:q.correct.join('; ')},'no answer');return}const ok=selected.length===q.correct.length&&selected.every(v=>q.correct.includes(v));box.querySelectorAll('.option').forEach(l=>{if(q.correct.includes(l.dataset.value))l.classList.add('correct');if(selected.includes(l.dataset.value)&&!q.correct.includes(l.dataset.value))l.classList.add('incorrect')});finish(c,ok,q,selected.join('; '))})}
- else {const row=document.createElement('div');row.className='match-row';const label=document.createElement('strong');label.textContent=q.pairs[0][0];const select=document.createElement('select');select.className='match-select';select.innerHTML='<option value="">Select a match</option>';shuffle([q.pairs[0][1],'A Linux permission command','A method for deleting backups','A replacement for encryption']).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;select.appendChild(o)});row.append(label,select);c.appendChild(row);addButton(c,()=>{if(!select.value){feedback(c,false,{...q,correct:q.pairs[0][1]},'no answer');return}const ok=select.value===q.pairs[0][1];select.classList.add(ok?'correct':'incorrect');finish(c,ok,q,select.value)})}
- c.appendChild(feedbackEl);return c}
-function render(){quiz.innerHTML='';questions.forEach((q,i)=>quiz.appendChild(card(q,i)));update()}
-document.getElementById('reset').onclick=()=>{answered=0;correctCount=0;render();window.scrollTo({top:0,behavior:'smooth'})};render();
+
+const MAX_QUESTIONS = 100;
+const THREE_QUESTION_TERMS = new Set(glossary.slice(0, 24).map(item => item.term));
+
+function shuffle(arr) {
+  const out = [...arr];
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function termMeta(term) {
+  return term === term.toUpperCase() || /\d/.test(term) ? `Acronym focus — ${term}` : `Term focus — ${term}`;
+}
+
+function otherDefinitions(currentTerm, take = 3) {
+  return shuffle(glossary.filter(item => item.term !== currentTerm).map(item => item.definition)).slice(0, take);
+}
+
+function makeMcQuestion(item, index) {
+  const stems = [
+    `A release manager says the team should "secure it later" after shipping. Which concept best counters that plan?`,
+    `During sprint planning, the team wants a control that continuously lowers risk throughout delivery. Which concept fits best?`,
+    `In a post-incident review, which concept most directly guides this improvement decision?`,
+    `Which description best captures the role of ${item.term} in a practical DevSecOps workflow?`
+  ];
+
+  return {
+    type: 'Multiple Choice',
+    term: item.term,
+    definition: item.definition,
+    q: `${stems[index % stems.length]} (${item.term})`,
+    options: shuffle([item.definition, ...otherDefinitions(item.term, 3)]),
+    correct: item.definition,
+    explanation: `${item.term} is the best fit because ${item.definition}`,
+    citation: item.citation,
+    wrongWhy: 'the selected statement describes a different security concept or control'
+  };
+}
+
+function makeTfQuestion(item, index) {
+  const accurate = index % 2 === 0;
+  const statement = accurate
+    ? `${item.term} is accurately described as: ${item.definition}`
+    : `${item.term} means teams can skip security checks if delivery speed is high.`;
+
+  return {
+    type: 'True / False',
+    term: item.term,
+    definition: item.definition,
+    q: `Evaluate this claim used in an architecture review: ${statement}`,
+    options: ['True', 'False'],
+    correct: accurate ? 'True' : 'False',
+    explanation: accurate
+      ? `The claim is correct. ${item.term} is defined as ${item.definition}`
+      : `The claim is false. ${item.term} does not permit bypassing security; it is defined as ${item.definition}`,
+    citation: item.citation,
+    wrongWhy: 'the truth value conflicts with the course definition and secure-practice intent'
+  };
+}
+
+function makeMultiSelectQuestion(item) {
+  const correctA = `${item.term} helps by applying this principle: ${item.definition}`;
+  const correctB = `${item.term} should be used to reduce risk before production impact grows.`;
+  const distractors = [
+    `${item.term} is primarily a way to store secrets in plaintext for fast debugging.`,
+    `${item.term} replaces all other controls, so teams can disable layered defenses.`
+  ];
+
+  return {
+    type: 'Multi-select',
+    term: item.term,
+    definition: item.definition,
+    q: `Select all statements that correctly reflect how ${item.term} should be applied in practice.`,
+    options: shuffle([correctA, correctB, ...distractors]),
+    correct: [correctA, correctB],
+    explanation: `${item.term} should align with defense-in-depth and practical risk reduction: ${item.definition}`,
+    citation: item.citation,
+    wrongWhy: 'the selected set includes unsafe claims or omits key course-aligned properties'
+  };
+}
+
+function makeMatchingQuestion(item) {
+  const decoys = [
+    'Temporary bypass that disables security gates to speed delivery',
+    'Method for storing production secrets directly in source code',
+    'One-time control that eliminates all future cyber risk'
+  ];
+
+  return {
+    type: 'Matching',
+    term: item.term,
+    definition: item.definition,
+    q: `Match this term to its best definition in the incident-response prep worksheet: ${item.term}`,
+    pairs: [[item.term, item.definition]],
+    options: shuffle([item.definition, ...decoys]),
+    explanation: `${item.term} corresponds to this definition: ${item.definition}`,
+    citation: item.citation,
+    wrongWhy: 'the chosen match does not represent the term used in course material'
+  };
+}
+
+function buildQuestionPool() {
+  const pool = [];
+  glossary.forEach((item, index) => {
+    pool.push(makeMcQuestion(item, index));
+    pool.push(makeTfQuestion(item, index));
+    if (THREE_QUESTION_TERMS.has(item.term)) {
+      pool.push(index % 2 === 0 ? makeMultiSelectQuestion(item) : makeMatchingQuestion(item));
+    }
+  });
+  return pool.slice(0, MAX_QUESTIONS);
+}
+
+const baseQuestionPool = buildQuestionPool();
+let attemptQuestions = [];
+let shownDefinitions = new Set();
+let answered = 0;
+let correctCount = 0;
+
+const quiz = document.getElementById('quiz');
+const score = document.getElementById('score');
+const fill = document.getElementById('fill');
+const track = document.getElementById('track');
+const progressText = document.getElementById('progressText');
+const finalScore = document.getElementById('finalScore');
+
+function update() {
+  const total = attemptQuestions.length;
+  const pct = total ? (correctCount / total) * 100 : 0;
+  const done = total ? (answered / total) * 100 : 0;
+  score.textContent = `Score: ${correctCount} / ${total} | Answered: ${answered} / ${total}`;
+  finalScore.textContent = answered === total
+    ? `Quiz complete — final score: ${pct.toFixed(1)}% (${correctCount} correct out of ${total})`
+    : `Current score: ${pct.toFixed(1)}% (${correctCount} correct out of ${total})`;
+  fill.style.width = `${done}%`;
+  track.setAttribute('aria-valuemax', String(total));
+  track.setAttribute('aria-valuenow', String(answered));
+  progressText.textContent = `Progress: ${answered} of ${total} questions completed (${done.toFixed(0)}%)`;
+}
+
+function formatCorrectAnswer(question) {
+  if (Array.isArray(question.correct)) return question.correct.join(' | ');
+  if (question.pairs) return question.pairs.map(pair => pair.join(' → ')).join('; ');
+  return question.correct;
+}
+
+function showFeedback(card, ok, question, selected) {
+  const feedback = card.querySelector('.feedback');
+  const answerText = formatCorrectAnswer(question);
+  if (ok) {
+    feedback.textContent = `Correct. ${question.explanation} ${question.citation}`;
+    feedback.className = 'feedback show good';
+    return;
+  }
+  feedback.textContent = `Incorrect. You selected "${selected}"; this is incorrect because ${question.wrongWhy}. The correct answer is "${answerText}". ${question.explanation} ${question.citation}`;
+  feedback.className = 'feedback show bad';
+}
+
+function finishQuestion(card, ok, question, selected) {
+  if (card.dataset.done) return;
+  card.dataset.done = '1';
+  card.querySelectorAll('input,select,button').forEach(el => {
+    el.disabled = true;
+  });
+  answered += 1;
+  if (ok) correctCount += 1;
+  showFeedback(card, ok, question, selected);
+  update();
+}
+
+function addButton(card, handler) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'button';
+  button.textContent = 'Check Answer';
+  button.onclick = handler;
+  card.appendChild(button);
+}
+
+function createCard(question, index) {
+  const card = document.createElement('article');
+  card.className = 'card';
+
+  const definitionFirstSeen = !shownDefinitions.has(question.term);
+  if (definitionFirstSeen) shownDefinitions.add(question.term);
+
+  card.innerHTML = `<span class="badge">${question.type}</span><h2>${index + 1}. ${question.q}</h2>${definitionFirstSeen ? `<div class="definition"><strong>${termMeta(question.term)}:</strong> ${question.term} — ${question.definition} ${question.citation}</div>` : ''}`;
+
+  const feedback = document.createElement('p');
+  feedback.className = 'feedback';
+
+  if (question.type === 'Multiple Choice' || question.type === 'True / False') {
+    const box = document.createElement('div');
+    box.className = 'options';
+    shuffle(question.options).forEach(optionValue => {
+      const label = document.createElement('label');
+      label.className = 'option';
+      label.dataset.value = optionValue;
+      label.innerHTML = `<input type="radio" name="q${index}" value="${optionValue}"><span>${optionValue}</span>`;
+      label.querySelector('input').onchange = () => {
+        const ok = optionValue === question.correct;
+        box.querySelectorAll('.option').forEach(opt => {
+          if (opt.dataset.value === question.correct) opt.classList.add('correct');
+          if (opt.dataset.value === optionValue && !ok) opt.classList.add('incorrect');
+        });
+        finishQuestion(card, ok, question, optionValue);
+      };
+      box.appendChild(label);
+    });
+    card.appendChild(box);
+  } else if (question.type === 'Multi-select') {
+    const box = document.createElement('div');
+    box.className = 'options';
+    shuffle(question.options).forEach(optionValue => {
+      const label = document.createElement('label');
+      label.className = 'option';
+      label.dataset.value = optionValue;
+      label.innerHTML = `<input type="checkbox" value="${optionValue}"><span>${optionValue}</span>`;
+      box.appendChild(label);
+    });
+    card.appendChild(box);
+    addButton(card, () => {
+      const selected = [...box.querySelectorAll('input:checked')].map(i => i.value);
+      if (!selected.length) {
+        showFeedback(card, false, question, 'no answer');
+        return;
+      }
+      const ok = selected.length === question.correct.length && selected.every(v => question.correct.includes(v));
+      box.querySelectorAll('.option').forEach(label => {
+        if (question.correct.includes(label.dataset.value)) label.classList.add('correct');
+        if (selected.includes(label.dataset.value) && !question.correct.includes(label.dataset.value)) label.classList.add('incorrect');
+      });
+      finishQuestion(card, ok, question, selected.join('; '));
+    });
+  } else {
+    const row = document.createElement('div');
+    row.className = 'match-row';
+    const left = document.createElement('strong');
+    left.textContent = question.pairs[0][0];
+    const select = document.createElement('select');
+    select.className = 'match-select';
+    select.innerHTML = '<option value="">Select a match</option>';
+    shuffle(question.options).forEach(optionValue => {
+      const option = document.createElement('option');
+      option.value = optionValue;
+      option.textContent = optionValue;
+      select.appendChild(option);
+    });
+    row.append(left, select);
+    card.appendChild(row);
+    addButton(card, () => {
+      if (!select.value) {
+        showFeedback(card, false, question, 'no answer');
+        return;
+      }
+      const correctMatch = question.pairs[0][1];
+      const ok = select.value === correctMatch;
+      select.classList.add(ok ? 'correct' : 'incorrect');
+      finishQuestion(card, ok, question, select.value);
+    });
+  }
+
+  card.appendChild(feedback);
+  return card;
+}
+
+function startNewAttempt() {
+  attemptQuestions = shuffle(baseQuestionPool).slice(0, MAX_QUESTIONS);
+  shownDefinitions = new Set();
+  answered = 0;
+  correctCount = 0;
+}
+
+function render() {
+  quiz.innerHTML = '';
+  attemptQuestions.forEach((question, index) => {
+    quiz.appendChild(createCard(question, index));
+  });
+  update();
+}
+
+document.getElementById('reset').onclick = () => {
+  startNewAttempt();
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+startNewAttempt();
+render();
 </script>
 </body>
 </html>
