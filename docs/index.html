@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DevSecOps and Cybersecurity Quiz</title>
+  <style id="milestone-toast-style">
+    #milestoneToast{position:fixed;top:1.2rem;left:50%;transform:translateX(-50%) translateY(-120%);z-index:300;background:var(--dark);color:#fff;font-weight:bold;font-size:1.1rem;padding:.7rem 1.6rem;border-radius:999px;box-shadow:0 4px 18px rgba(154,52,18,.35);transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .35s ease;opacity:0;pointer-events:none}
+    #milestoneToast.show{transform:translateX(-50%) translateY(0);opacity:1}
+  </style>
   <style>
     :root{--orange:#ea580c;--dark:#9a3412;--pale:#fff7ed;--line:#fed7aa;--text:#292524;--green:#166534;--green-bg:#dcfce7;--red:#b91c1c;--red-bg:#fee2e2;--blue-bg:#dbeafe;--blue-border:#93c5fd}
     *{box-sizing:border-box}
@@ -39,13 +43,20 @@
     #finalScore{padding:1.2rem;border:2px solid var(--orange);border-radius:12px;background:#ffedd5;color:var(--dark);text-align:center;font-size:1.15rem;font-weight:bold}
 
     /* Floating timer button */
-    #timerBtn{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:.25rem;background:#fff;border:2px solid var(--orange);border-radius:14px;padding:.72rem .84rem;cursor:pointer;box-shadow:0 4px 16px rgba(154,52,18,.18);transition:transform .2s ease,box-shadow .2s ease;font-family:inherit;color:var(--dark)}
+    #timerBtn{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:.25rem;background:#fff;border:2px solid var(--orange);border-radius:14px;padding:.792rem .924rem;cursor:pointer;box-shadow:0 4px 16px rgba(154,52,18,.18);transition:transform .2s ease,box-shadow .2s ease,opacity .2s ease;font-family:inherit;color:var(--dark)}
     #timerBtn:hover,#timerBtn:focus-visible{transform:translateY(-50%) scale(1.15);box-shadow:0 8px 24px rgba(154,52,18,.28);outline:2px solid var(--orange);outline-offset:2px}
-    #timerBtn .clock-icon{font-size:1.92rem;line-height:1}
-    #timerBtn .timer-display{font-size:.85rem;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:.05em;min-width:5ch;text-align:center}
-    #timerBtn .timer-action{font-size:.7rem;color:var(--orange);text-align:center}
+    #timerBtn.is-paused{opacity:.1}
+    #timerBtn .clock-icon{font-size:2.112rem;line-height:1}
+    #timerBtn .timer-display{font-size:.935rem;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:.05em;min-width:5ch;text-align:center}
+    #timerBtn .timer-action{font-size:.77rem;color:var(--orange);text-align:center}
     #quiz{transition:filter .2s ease,opacity .2s ease}
     #quiz.is-paused{filter:blur(2px);opacity:.2}
+
+    /* Hint toggle */
+    .hint-btn{background:none;border:1px solid var(--orange);border-radius:6px;color:var(--orange);font-size:.78rem;font-weight:bold;padding:.2rem .55rem;cursor:pointer;margin-left:.5rem;vertical-align:middle}
+    .hint-btn:hover{background:var(--pale)}
+    .hint-content{display:none}
+    .hint-content.revealed{display:inline}
 
     /* Confetti canvas */
     #confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:200}
@@ -64,8 +75,8 @@
       .status{top:78px;flex-direction:column;align-items:stretch}
       .match-row{grid-template-columns:1fr}
       .button{width:100%}
-      #timerBtn{right:.4rem;padding:.54rem .6rem}
-      #timerBtn .clock-icon{font-size:1.56rem}
+      #timerBtn{right:.4rem;padding:.594rem .66rem}
+      #timerBtn .clock-icon{font-size:1.716rem}
     }
     @media(prefers-reduced-motion:reduce){
       .fill{animation:none}
@@ -76,19 +87,19 @@
 <body>
 <header>
   <h1>DevSecOps and Cybersecurity Quiz</h1>
-  <p>80 randomized questions across Modules 1–6. Formats: multiple-choice, true/false, multi-select, and matching. Answer options and question order reshuffle on every reset.</p>
+  <p>72 randomized questions across Modules 1–6. Formats: multiple-choice, true/false, multi-select, and matching. Answer options and question order reshuffle on every reset.</p>
 </header>
 <section class="progress-shell" aria-label="Quiz progress">
   <div id="track" class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="fill" class="fill"></div></div>
-  <p id="progressText">Progress: 0 of 80 questions completed (0%)</p>
+  <p id="progressText">Progress: 0 of 72 questions completed (0%)</p>
 </section>
 <main class="container">
   <section class="status">
-    <strong id="score">Score: 0 / 80 | Answered: 0 / 80</strong>
+    <strong id="score">Score: 0 / 72 | Answered: 0 / 72</strong>
     <button id="reset" class="button" type="button">Reset and Shuffle Quiz</button>
   </section>
   <section id="quiz" aria-label="Quiz questions"></section>
-  <section id="finalScore" aria-live="polite">Current score: 0.0% (0 correct out of 80)</section>
+  <section id="finalScore" aria-live="polite">Current score: 0.0% (0 correct out of 72)</section>
 </main>
 
 <!-- Floating timer -->
@@ -97,6 +108,9 @@
   <span class="timer-display" id="timerDisplay">00:00:00</span>
   <span class="timer-action" id="timerAction">Pause</span>
 </button>
+
+<!-- Milestone toast -->
+<div id="milestoneToast" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <!-- Confetti canvas -->
 <canvas id="confettiCanvas" aria-hidden="true"></canvas>
@@ -159,7 +173,7 @@ const glossary = [
   { term: 'Zero Trust', definition: 'an architecture that removes implicit network-perimeter trust and instead continuously verifies identity, device health, and context for every access request.', citation: '(Module 1, Slide 22)' }
 ];
 
-const MAX_QUESTIONS = 80;
+const MAX_QUESTIONS = 72;
 
 /* ── Helpers ──────────────────────────────────────────────────────────────── */
 function shuffle(arr) {
@@ -306,6 +320,7 @@ function startTimer() {
   if (timerRunning || quizDone) return;
   timerRunning = true;
   quiz.classList.remove('is-paused');
+  document.getElementById('timerBtn').classList.remove('is-paused');
   quizStartTime = Date.now() - timerMs;
   timerInterval = setInterval(() => {
     timerMs = Date.now() - quizStartTime;
@@ -318,6 +333,7 @@ function pauseTimer() {
   if (!timerRunning) return;
   timerRunning = false;
   quiz.classList.add('is-paused');
+  document.getElementById('timerBtn').classList.add('is-paused');
   clearInterval(timerInterval);
   timerInterval = null;
   document.getElementById('timerAction').textContent = 'Resume';
@@ -327,6 +343,7 @@ function stopTimer() {
   pauseTimer();
   quizDone = true;
   quiz.classList.remove('is-paused');
+  document.getElementById('timerBtn').classList.remove('is-paused');
   document.getElementById('timerAction').textContent = 'Done';
 }
 
@@ -337,6 +354,7 @@ function resetTimer() {
   timerMs = 0;
   quizDone = false;
   quiz.classList.remove('is-paused');
+  document.getElementById('timerBtn').classList.remove('is-paused');
   document.getElementById('timerDisplay').textContent = '00:00:00';
   document.getElementById('timerAction').textContent = 'Pause';
 }
@@ -357,12 +375,12 @@ let confettiAnim = null;
 let lastMilestone = 0;
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function spawnConfetti() {
+function spawnConfetti(count = 160) {
   if (REDUCED_MOTION) return;
   confettiCanvas.width = window.innerWidth;
   confettiCanvas.height = window.innerHeight;
   const colors = ['#ea580c','#fb923c','#fbbf24','#34d399','#60a5fa','#a78bfa','#f472b6','#f87171'];
-  for (let i = 0; i < 160; i++) {
+  for (let i = 0; i < count; i++) {
     confettiParticles.push({
       x: Math.random() * confettiCanvas.width,
       y: -20 - Math.random() * 60,
@@ -406,12 +424,38 @@ function animateConfetti() {
   }
 }
 
+let toastTimeout = null;
+function showMilestoneBanner(message) {
+  const toast = document.getElementById('milestoneToast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  if (toastTimeout) clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+const MILESTONE_MESSAGES = {
+  18: '25% complete!',
+  36: '50% complete!',
+  54: '75% complete!'
+};
+
 function checkMilestone() {
-  const milestone = Math.floor(correctCount / 10) * 10;
-  if (milestone > 0 && milestone > lastMilestone) {
+  const milestone = Math.floor(answered / 18) * 18;
+  if (milestone > 0 && milestone > lastMilestone && milestone < MAX_QUESTIONS) {
     lastMilestone = milestone;
     spawnConfetti();
+    if (MILESTONE_MESSAGES[milestone]) {
+      showMilestoneBanner(MILESTONE_MESSAGES[milestone]);
+    }
   }
+}
+
+function spawnCompletionConfetti() {
+  if (REDUCED_MOTION) return;
+  // Three waves of confetti for a longer effect
+  spawnConfetti(240);
+  setTimeout(() => spawnConfetti(200), 800);
+  setTimeout(() => spawnConfetti(160), 1600);
 }
 
 /* ── Score / progress update ─────────────────────────────────────────────── */
@@ -437,6 +481,7 @@ function showCompletion() {
   document.getElementById('statAvg').textContent = formatHMS(avg);
   completionView.classList.add('show');
   completionView.focus();
+  spawnCompletionConfetti();
 }
 
 document.getElementById('retryBtn').addEventListener('click', () => {
@@ -497,7 +542,20 @@ function createCard(question, index) {
   const definitionFirstSeen = !shownDefinitions.has(question.term);
   if (definitionFirstSeen) shownDefinitions.add(question.term);
 
-  card.innerHTML = `<span class="badge">${question.type}</span><h2>${index + 1}. ${question.q}</h2>${definitionFirstSeen ? `<div class="definition"><strong>${termMeta(question.term)}:</strong> ${question.term} — ${question.definition} ${question.citation}</div>` : ''}`;
+  card.innerHTML = `<span class="badge">${question.type}</span><h2>${index + 1}. ${question.q}</h2>${definitionFirstSeen ? `<div class="definition"><strong>${termMeta(question.term)}:</strong><button type="button" class="hint-btn" aria-expanded="false" aria-controls="hint-${index}">Hint!</button><span class="hint-content" id="hint-${index}"> ${question.term} — ${question.definition} ${question.citation}</span></div>` : ''}`;
+
+  if (definitionFirstSeen) {
+    const hintBtn = card.querySelector('.hint-btn');
+    hintBtn.addEventListener('click', () => {
+      const expanded = hintBtn.getAttribute('aria-expanded') === 'true';
+      hintBtn.setAttribute('aria-expanded', String(!expanded));
+      hintBtn.textContent = expanded ? 'Hint!' : 'Hide';
+      card.querySelector(`#hint-${index}`).classList.toggle('revealed', !expanded);
+    });
+    hintBtn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hintBtn.click(); }
+    });
+  }
 
   if (question.type === 'Multiple Choice' || question.type === 'True / False') {
     const box = document.createElement('div');
